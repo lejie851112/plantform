@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block add_css %}
+    <!-- DataTables CSS -->
+    <link href="/static/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+{% endblock add_css %}
+
+{% block page-wrapper %}
+
+        <div id="page-wrapper">
+		
+            <div class="row">
+			
+                <div class="col-lg-12">
+				<div class="panel-body">
+						<ul class="nav nav-pills">
+								<li><a href="push" >任务队列</a></li> 
+                                <li  class="active"><a href="push_list">历史任务</a></li>                                                              
+						</ul>				
+				</div>
+				</div>
+			</div>
+			<div class="row">
+                <div class="col-lg-12">
+				<div class="panel panel-default">				
+					<div class="panel-body">
+
+					<div class="dataTable_wrapper">            
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>设备</th>
+								<th>模板</th>
+								<th>参数</th>
+								<th>状态</th>
+								<th>创建时间</th>
+								<th>返回值</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+									{% for task in tasks %}                                                        
+                                        <tr>											
+                                            <td>{{ task.id}}</td>
+                                            <td>{{ task.hosts }}</td>											
+                                            <td>{{ task.model}}</td>
+											<td>{{ task.args }} </td>
+											<td>
+											{% if task.status == '0'%}
+												{{'PENDING'}}
+											{% elif task.status == '1'%}
+												{{'STARTED'}}
+											{% elif task.status == '2'%}
+												{{'SUCCESS'}}
+											{% elif task.status == '3'%}
+												{{'FAILURE'}}
+											{%endif%}
+											</td>
+											<td>{{ task.createtime|date:"Y/m/d H:i:s" }} </td>	
+											<td>
+											<button class='btn btn-link' data-toggle="modal" data-target="#show{{task.id}}" >查看</button>		
+												<!-- <button class='btn btn-link' onclick='showdetail(this.value)' value='{{config.detail}}'>查看</button>		 -->
+												<div value='task{{task.id}}' class="modal fade" id="show{{task.id}}" tabindex="-1" role="dialog" aria-labelledby="add1"  aria-hidden="true">
+												<!-- <div class="modal-dialog"> -->
+													<!-- <div class="modal-content">     -->
+														<!-- <div class="modal-header">                                           
+															<h4 class="modal-title">{{config.confname}}</h4>
+														</div> -->
+														<!-- <label>{{config.confname}}</label>  --> 
+														
+														<textarea id='task{{task.id}}' style="word-wrap: break-word; word-break: break-all;width: 580px; height: 502px;" rows="10" readonly>{{task.detail}}</textarea>
+														
+														
+												<!-- 	</div>
+												</div> -->
+												</div>
+											</td>				
+                                        </tr>                                 										
+									{% endfor %}
+						</tbody>
+                    </table>
+					</div>
+	                </div>
+					 </div>
+				 </div>
+			</div>
+		</div>
+{% endblock page-wrapper %}
+
+
+{% block add_script %}
+    <!-- DataTables JavaScript -->
+    <script src="/static/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/static/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+	
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+	function re(name){
+		alert(name);
+		//var status = document.getElementById(name);
+		//alert(status.style.display);
+		//if ( status.style.display == 'none'){
+		//	document.getElementById(name).setAttribute("style","display:");
+		//}
+		//else{
+		//	document.getElementById(name).setAttribute("style","display:none");
+		//};
+	};
+    </script>
+{% endblock add_script %}

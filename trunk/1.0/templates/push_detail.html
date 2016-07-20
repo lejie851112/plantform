@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block add_css %}
+    <!-- DataTables CSS -->
+    <link href="/static/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+{% endblock add_css %}
+
+{% block page-wrapper %}
+
+        <div id="page-wrapper">
+            <div class="row">
+				<div class="panel-body">
+					<div class="col-lg-11">
+						<h1 class="page-header">任务详情</h1>
+					</div>
+					<div class="col-lg-1">
+						<a href='/push_list' class="btn btn-primary push-right">返回</a>
+					</div>
+			
+				</div>		
+			</div>	
+			<div class="row">
+                <div class="col-lg-12">		
+					<div class="panel-body">
+						<pre>{{ push_detail }} </pre>
+	                </div>
+				</div>
+			</div>
+		</div>
+{% endblock page-wrapper %}
+
+
+{% block add_script %}
+    <!-- DataTables JavaScript -->
+    <script src="/static/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/static/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+	
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
+{% endblock add_script %}

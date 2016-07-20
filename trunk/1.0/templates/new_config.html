@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block page-wrapper %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">新建配置</h1>
+                </div>
+            </div>
+            <div class="row">
+                     <div class="col-lg-12">
+                        <div class="panel-body">
+                            <form action="/new_config" method="post" id='conf_form'  enctype="multipart/form-data">
+							{% csrf_token %}
+								<div id='confname' class="col-lg-3">
+								<label>配置名：</label> 
+								<input id='conf_name' type="text" class="form-control" name='configname' value='{{conf.confname}}'>
+								</div>
+								<div class="col-lg-12 panel-body">
+								<label>配置脚本（sls文件）：</label> 
+								<textarea style="width: 592px; height: 502px;" class="form-control" rows="10" name='detail'>{{conf.detail}}</textarea>	
+								</div>					
+								<div class="col-lg-12 panel-body">
+								<button class="btn btn-primary" type="button" onclick='checkform()'>保存</button>
+								<!-- <input type="submit" class="btn btn-primary" value='保存'/> -->
+								<a href='/edit' class="btn btn-primary">取消</a>
+								</div>
+							</form>
+	                    </div>
+				    </div>
+			</div>
+		</div>
+{% endblock page-wrapper %}
+{% block add_script %}
+
+    <script type="text/javascript">
+	function checkform() {  
+		cn = document.getElementById("conf_name").value;
+		if (cn != ''){			
+			$('#conf_form').submit();
+		}
+		else{
+			document.getElementById("confname").setAttribute("class","col-lg-3 has-error");
+		};
+    };
+    </script>
+	
+{% endblock add_script %}
