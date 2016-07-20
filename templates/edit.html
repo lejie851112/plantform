@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block add_css %}
+    <!-- DataTables CSS -->
+    <link href="/static/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+{% endblock add_css %}
+{% block page-wrapper %}
+
+        <div id="page-wrapper">
+            <div class="row">
+			<div class="panel-body col-lg-12">
+                <div class="col-lg-11">
+						<ul class="nav nav-pills">
+								<li  class="active"><a href="/edit" >配置管理</a></li> 
+                                <li><a href="/file_list">文件管理</a></li>                                                              
+						</ul>
+				</div>
+						<div class="col-lg-1 pull-right">
+							<a href="/new_config" class="btn btn-info">新建</a>
+						</div>						
+				
+			</div></div>
+            <div class="row">
+                <div class="col-lg-12">
+				<div class="panel panel-default">	
+                        <div class="panel-body">
+							
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Create User</th>
+                                            <th>Create Time</th>
+                                            <th>Update Time</th>
+											<th>Detail</th>
+											<th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+										{%for config in configs%}
+                                        <tr>
+										
+                                            <td>{{config.confname}}</td>
+                                            <td>{{config.createuser}}</td>
+											<td>{{config.createtime}}</td>
+											<td>{{config.updatetime}}</td>
+											<td>
+												<button class='btn btn-link' data-toggle="modal" data-target="#show{{config.confname}}">查看</button>		
+												<!-- <button class='btn btn-link' onclick='showdetail(this.value)' value='{{config.detail}}'>查看</button>		 -->
+												<div class="modal fade" id="show{{config.confname}}" tabindex="-1" role="dialog" aria-labelledby="add1"  aria-hidden="true">
+												<!-- <div class="modal-dialog">
+													<div class="modal-content">  -->   
+														<!-- <div class="modal-header">                                           
+															<h4 class="modal-title">{{config.confname}}</h4>
+														</div> -->
+														<!-- <label>{{config.confname}}</label>  --> 
+														<textarea style="width: 580px; height: 502px;" class="form-control" rows="10" >{{config.detail}}</textarea>
+														
+												<!-- 	</div>
+												</div> -->
+												</div>
+											</td>
+											<td>
+												<a class="btn btn-outline btn-primary btn-xs" href='/conf_edit/{{config.confname}}'>编辑</a>
+											
+												<button id='conf_del' type='button' class="btn btn-outline btn-primary btn-xs" value='{{config.confname}}' onclick='mksure(this.value)' >删除</button>
+											
+											</td>
+											<!-- <text id='{{config.confname}}' style="display:none">
+												{{config.detail}}
+											</text> -->
+											
+                                        </tr>
+										
+										{%endfor%} 
+                                    </tbody>
+                                </table>
+                            </div>
+	                    </div>
+				</div></div>
+			</div>
+		</div>
+{% endblock page-wrapper %}
+{% block add_script %}
+    <!-- DataTables JavaScript -->
+    <script src="/static/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/static/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+	
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+	function mksure(confname){
+		//confname = document.getElementById("conf_del").value;
+		alert(confname)
+		v = confirm('将删除配置文件！');
+		if (v == true){
+			//window.location.href="/salt_group";
+			//pass;
+		//}
+		//else{
+			window.location.href="/conf_del/" + confname ;
+		}
+	};
+	function showdetail(name){
+		alert(name);
+		//var status = document.getElementById(name);
+		//alert(status.style.display);
+		//if ( status.style.display == 'none'){
+		//	document.getElementById(name).setAttribute("style","display:");
+		//}
+		//else{
+		//	document.getElementById(name).setAttribute("style","display:none");
+		//};
+	};
+    </script>
+{% endblock add_script %}

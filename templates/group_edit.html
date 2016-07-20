@@ -1,0 +1,106 @@
+
+{% extends "base.html" %}
+
+{% block add_css %}
+
+{% endblock add_css %}
+
+{% block page-wrapper %}
+<div id="page-wrapper">
+
+    <div class="row">
+		<div class="col-lg-12">
+		<h1 class="page-header">编辑组</h1>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<form action="" method="post">
+						{% csrf_token %}
+						<div class="col-lg-12 form-group">
+							<label>组名：</label>
+							<input name='name' class="form-control" type='text' value='{{groupname}}'></input>
+						</div>
+						<div class="col-lg-6 form-group">
+							<label>已选：</label>
+							<select id='selected' name='host_selected'  multiple="multiple" class="form-control" size='20' >
+							{%for host in hosts_selected%}
+                            <option>{{host}}</option>
+							{%endfor%}
+							</select>
+						</div>
+						<div class="col-lg-1 form-group">
+							<br><br><br><br><br>
+							<input id='add' class="btn btn-primary btn-sm" onclick="addone()" type='button' value='<<'/>
+							<br><br>
+							<input id='remove' class="btn btn-primary btn-sm" onclick="removeone()" type='button' value='>>'/>
+						</div>
+						<div class="col-lg-5 form-group">
+							<label>全部：</label>
+							<select id='unselected' name='host_unselected' multiple="multiple" class="form-control" size='20'>
+							{%for host in hosts_unselected%}
+                            <option>{{host}}</option>
+							{%endfor%}
+							</select>
+						</div>
+						<div class="col-lg-12"></div>
+						<div class="col-lg-5 form-group">
+							<input class="btn btn-primary" type='submit' onclick="changesubmit()" value='保存'/>
+							<a class="btn btn-primary" href='/salt_group'>取消</a>
+						</div>
+					</form>
+				</div>	
+            </div>
+        </div>
+    </div>
+	
+</div>
+
+{% endblock page-wrapper %}
+
+{% block add_script %}
+    <script type="text/javascript">
+	
+    function addone(){
+		var oldoption =  document.getElementById("selected");
+		var oldall =  document.getElementById("unselected");
+		for (i=0;i<oldall.length;i++){
+			if (oldall.options[i].selected){
+			var newoption = document.createElement('option');
+			newoption.text = oldall.options[i].text; 
+			oldoption.add(newoption);
+			}
+		}
+		while(oldall.selectedIndex != -1){
+		oldall.remove(oldall.selectedIndex);
+		}
+	};
+	
+	function removeone(){
+		var oldoption =  document.getElementById("selected");	
+		var oldall =  document.getElementById("unselected");
+		//var newoption = document.createElement('option');
+		//newoption.text = $("#selected").find("option:selected").text(); 
+		//alert(newoption.text);
+		//oldall.add(newoption);	
+		//oldoption.remove(oldoption.selectedIndex)	
+		for (i=0;i<oldoption.length;i++){
+			if (oldoption.options[i].selected){
+			var newoption = document.createElement('option');
+			newoption.text = oldoption.options[i].text; 
+			oldall.add(newoption);
+			}
+		}
+		while(oldoption.selectedIndex != -1){
+		//alert(oldoption.selectedIndex);
+		oldoption.remove(oldoption.selectedIndex);
+		}
+	};
+	function changesubmit(){
+		var selectedoption =  document.getElementById("selected");	
+		for (i=0;i<selectedoption.length;i++){
+			selectedoption.options[i].selected = 'True';
+		}
+		
+	};
+
+    </script>
+{% endblock add_script %}

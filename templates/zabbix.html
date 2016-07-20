@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block page-wrapper %}
+        <div id="page-wrapper">	             
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">					    
+                        <div class="panel-body">
+						
+							<ul class="nav nav-pills">
+                                <li><a href="zabbix_host.html" >主机列表</a>
+                                </li>
+                                <li><a href="zabbix_alert.html" >报警</a>
+                                </li>
+                                <li><a href="zabbix_graps.html" >图形</a>
+                                </li>                                
+							</ul>
+							{% block zabbix_table %}
+							{% endblock zabbix_table %}
+	                    </div>
+				    </div>
+			    </div>
+		    </div>                              
+{% endblock page-wrapper %}

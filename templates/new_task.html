@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block page-wrapper %}
+
+        <div id="page-wrapper">
+
+		
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">新建配置</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+            <!-- /.row -->
+            <div class="row">
+                     <div class="col-lg-12">
+
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <form name="input" action="save_config" method="get">		                          
+								<textarea style="width: 592px; height: 502px;" class="form-control" rows="10"></textarea>	
+								<input type="submit" class="btn btn-primary" value='保存'/>
+								<input type="reset" class="btn btn-primary" value='重置'/>
+							</form>
+	                    </div>
+				    </div>
+			</div>
+		</div>
+{% endblock page-wrapper %}

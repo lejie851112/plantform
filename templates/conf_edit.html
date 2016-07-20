@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block page-wrapper %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">编辑配置</h1>
+                </div>
+            </div>
+            <div class="row">
+                     <div class="col-lg-12">
+                        <div class="panel-body">
+                            <form  id='conf_name' action="/new_config" method="post">
+							{% csrf_token %}
+								<div class="col-lg-3">
+								<label>配置名：</label> 
+								<input  id='cname' type="text" class="form-control" name='configname' value='{{conf.confname}}' disabled="">
+								</div>
+								<div class="col-lg-12 panel-body">
+								<label>配置脚本（sls文件）：</label> 
+								<textarea style="width: 592px; height: 502px;" class="form-control" rows="10" name='detail'>{{conf.detail}}</textarea>	
+								</div>
+								<div class="col-lg-12 panel-body">
+								<button class="btn btn-primary" type="button" onclick='checkform()'>保存</button>
+								<!-- <input type="submit" class="btn btn-primary" value='保存'/> -->
+								<a href='/edit' class="btn btn-primary">取消</a>
+								</div>
+							</form>
+	                    </div>
+				    </div>
+			</div>
+		</div>
+{% endblock page-wrapper %}
+{% block add_script %}
+
+    <script type="text/javascript">
+	function checkform() {  
+		document.getElementById("cname").removeAttribute("disabled");
+		$('#conf_name').submit();	
+    };
+    </script>
+	
+{% endblock add_script %}

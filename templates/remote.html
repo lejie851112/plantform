@@ -1,0 +1,123 @@
+{% extends "base.html" %} 
+{% block page-wrapper %}
+<div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">远程命令</h1>
+      </div> 
+    </div>   
+	<div class="row">
+      <div class="col-lg-12">  
+		<div class="panel panel-default">
+        <div class="panel-body">		
+			<form id='remote_form' action="" method="post">
+			{% csrf_token %}
+			<div class="col-lg-2">
+				<label>类型</label> 
+				<select id='type' class="form-control" name='type' onchange='typechange(this.value)'>
+					<option value='None'>None</option>
+					<option value='Group'>Group</option>
+					<!-- <option value='Grain'>Grain</option>
+					<option value='Pillar'>Pillar</option> -->
+				</select>
+			</div>
+			<div class="col-lg-2">
+				<label>模块</label> 
+				<select id='models' class="form-control" name='model' onchange='change(this.value)'>
+					<option value='None'>None</option>
+					<option value='test.ping'>test.ping</option>
+					<option value='cmd.run'>cmd.run</option>
+					<option value='state.sls'>state.sls</option>
+				</select>
+			</div>
+			<div id='host_tgt' class="col-lg-3">
+				<label>设备</label> 
+				<input id='host_post' class="form-control" placeholder="参考设备分组" name='host_post'/>
+			</div>
+			<div id='group_tgt' class="col-lg-3" style="display:none" >
+				<label>组</label> 
+				<select id='group_post' class="form-control" name='group_post' >
+					<option value='None'>None</option>
+					<!-- <option>None</option> -->
+				{%for g in groups%}
+					<option>{{g}}</option>
+				{%endfor%}
+				</select>
+			</div>
+			<div id='args' class="col-lg-3" style="display:">
+				<label>参数</label> 
+				<input  class="form-control" placeholder="input arguments" name='arguments'/>
+			</div>
+			<div class="col-lg-2">
+				<label>执行</label></br> 			
+				<button class="btn btn-info" type="button" onclick='checkform()'>Execute</button>
+			</div>
+			
+			</form>	
+			<div class="col-lg-12">
+			<label>执行结果：</label>
+<pre>
+{%for key,value in remote_run%}### {{ key }} : 
+{{ value }}
+{% endfor %}
+</pre>
+			</div>
+        </div>
+		</div>
+      </div>
+    </div>
+	<!-- <div class="row">	
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<pre>
+			{%for key,value in remote_run%}
+			### {{ key }} : 
+			{{ value }}
+			{% endfor %}
+			</pre>
+			</div>
+		</div>
+	</div> -->
+</div>
+{% endblock page-wrapper %}
+{% block add_script %}
+
+    <script type="text/javascript">
+    function change(value) {  
+		//ping_value = document.getElementById("models").value;
+		if (value == 'test.ping'){			
+			//document.getElementById("args").style.display="none";placeholder
+			document.getElementById("args").setAttribute("style","display:none");
+		}
+		else{
+			document.getElementById("args").setAttribute("style","display:");		
+		};	
+    };
+	function typechange(value) {  
+		//ping_value = document.getElementById("models").value;
+		if (value == 'Group'){			
+			//document.getElementById("args").style.display="none";placeholder
+			document.getElementById("group_tgt").setAttribute("style","display:");
+			document.getElementById("host_tgt").setAttribute("style","display:none");
+		}
+		else{
+			document.getElementById("group_tgt").setAttribute("style","display:none");
+			document.getElementById("host_tgt").setAttribute("style","display:");		
+		};	
+    };
+	function checkform() {  
+		host_postvalue = document.getElementById("host_post").value;
+		group_postvalue = document.getElementById("group_post").value;
+		if (host_postvalue != '' || group_postvalue != 'None'){			
+			//alert('请填写完整！');
+			$('#remote_form').submit();
+		}
+		else{
+			document.getElementById("group_tgt").setAttribute("class","col-lg-3 has-error");
+			document.getElementById("host_tgt").setAttribute("class","col-lg-3 has-error");
+		};
+		
+    };
+    </script>
+	
+{% endblock add_script %}

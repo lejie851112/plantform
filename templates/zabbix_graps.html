@@ -1,0 +1,167 @@
+
+{% extends "base.html" %}
+
+{% block add_css %}
+
+	<link href="/static/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet">
+	<link href="/static/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+{% endblock add_css %}
+
+{% block page-wrapper %}
+<div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+			<div class="panel-body">
+			<form action="/zabbix_graps" id="graps" method='POST'>
+				{% csrf_token %}
+				<div class="col-lg-2 form-group">
+					<label>Groups</label>
+					<select name='G_groups' class="form-control" onchange="javascript:graps.submit()">
+						<option>None</option>
+					{%for group in get_groups%}
+						{% if G_groups == group.groupid %}
+                        <option value='{{group.groupid}}' selected="selected">{{group.name}}</option>
+						{%else%}
+						<option value='{{group.groupid}}'>{{group.name}}</option>
+						{%endif%}
+					{%endfor%}
+					<!-- <option>{{G_groups}}</option> -->
+							<!-- selected="selected" -->
+                    </select>
+				</div>
+				<div class="col-lg-2 form-group">
+					<label>Hosts</label>
+					<select name='G_hosts' class="form-control" onchange="javascript:graps.submit()">
+                        <option>None</option>
+                       	{%for host in get_hosts%}
+						{% if G_hosts == host.hostid %}
+                        <option value='{{host.hostid}}' selected="selected">{{host.name}}</option>
+						{%else%}
+						<option value='{{host.hostid}}'>{{host.name}}</option>
+						{%endif%}
+						
+						{%endfor%}
+					<!-- <option>{{G_hosts}}</option> -->
+                    </select>
+				</div>
+				<div class="col-lg-2 form-group">
+					<label>Graphs</label>
+					<select  name='G_graphs' class="form-control" onchange="javascript:graps.submit()">
+                        <option>None</option>
+						<!-- <option>{{G_graphs}}</option> -->
+                       {%for graph in get_grapslist%}
+						{%if G_graphs == graph.graphid%}
+                        <option value='{{graph.graphid}}' selected="selected">{{graph.name}}</option>
+						{%else%}
+						<option value='{{graph.graphid}}' >{{graph.name}}</option>
+						{%endif%}
+					{%endfor%}
+                    </select>
+				</div>
+				<div class="col-lg-2 form-group">
+					<label>Time</label>
+					<select id='G_name' name='G_time' class="form-control" onchange="javascript:graps.submit()">
+					{%if G_time == 'T_today'%}
+                        <option  value='T_today' selected="selected">今天</option>
+					{%else%}
+						<option value='T_today'>今天</option>
+					{%endif%}
+					{%if G_time == 'T_yestoday'%}
+						<option  value='T_yestoday' selected="selected">昨天</option>
+					{%else%}
+						<option value='T_yestoday'>昨天</option>
+					{%endif%}
+					{%if G_time == 'T_week'%}
+                        <option  value='T_week' selected="selected">1周</option>
+					{%else%}
+						<option value='T_week'>1周</option>
+					{%endif%}
+					{%if G_time == 'T_month'%}
+						<option value='T_month' selected="selected">1月</option>
+					{%else%}
+						<option value='T_month'>1月</option>
+					{%endif%}
+					{%if G_time == 'T_diy'%}
+						<option value='T_diy' selected="selected">自定义</option>
+					{%else%}
+						<option value='T_diy'>自定义</option>
+					{%endif%}
+                    </select>
+				</div>
+				<div id='stime' class="col-lg-2 form-group" >
+					<label>开始时间</label>
+					<input  name='G_start' type="text"  class="form-control" id='datetime' value="{{G_start}}"></input>
+				</div>
+				<div id='etime' class="col-lg-2 form-group">
+					<label>结束时间</label>
+					<input  name='G_end' type="text"  class="form-control" id='datetime1' onchange="javascript:graps.submit()" value="{{G_end}}"></input>
+				</div>
+			</form>
+            </div>
+        </div>
+    </div>
+	</div>
+	<div class="row">
+		<!-- <div class="col-lg-12"> -->
+			<!-- <div class="panel panel-default"> -->
+				<!-- <div class="panel-body"> -->
+				{% if show_images %}
+					{%if count != '1' %}
+						{%for url in show_images%}
+						<div class="col-lg-12 zabbix_img"> 					
+							<img src="{{url}}"></img>
+						</div>	
+						{%endfor%}
+					{%else%}
+						<div class="col-lg-12 zabbix_img"> 
+							<img src="{{show_images}}"></img>							
+						</div>	
+					{%endif%}				
+				{%endif%}
+				<!-- </div> -->
+			<!-- </div> -->
+		<!-- </div> -->
+	</div>
+</div>
+
+{% endblock page-wrapper %}
+
+{% block add_script %}
+  
+    <script src="/static/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/static/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="/static/bower_components/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	
+    <script type="text/javascript">
+    $(function() {
+        $('#datetime').datetimepicker({
+			todayHighlight: true,
+			//startView: '1',
+            format: "yyyy-mm-dd hh:ii", 
+            language: 'zh-CN', //汉化 
+　　		autoclose:true //选择日期后自动关闭 
+        });
+		$('#datetime1').datetimepicker({
+			todayHighlight: true,
+			//startView: '1',
+            format: "yyyy-mm-dd hh:ii",
+            language: 'zh-CN', //汉化 
+　　		autoclose:true //选择日期后自动关闭 
+        });
+		$(".zabbix_img img").addClass("carousel-inner img-responsive img-rounded");
+		if ($("#G_name").val() == 'T_diy'){
+			//document.getElementById("G_name").onchange="";
+			document.getElementById("stime").style.display="";
+			document.getElementById("etime").style.display="";
+			}
+		else{
+			//document.getElementById("graps").submit();
+			document.getElementById("stime").style.display="none";
+			document.getElementById("etime").style.display="none";
+			};
+    });
+    </script>
+	
+{% endblock add_script %}
