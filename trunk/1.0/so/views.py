@@ -462,6 +462,14 @@ def hostinfo(request):
 	data = {'device': salt_api.hostinfo()}
 	html = 'device.html'
 	return session_check(request,html,data)
+def device_group(request):
+	data = {'device_group': salt_api.device_group()}
+	html = 'device_group.html'
+	return session_check(request,html,data)
+def idc(request):
+	data = {'idc': salt_api.device_group()}
+	html = 'idc.html'
+	return session_check(request,html,data)
 	#return render_to_response('push_detail.html',{'push_detail': salt_api.push_detail(request,jobid)})
 def update_host(request):
 	salt_api.update_host(request)
