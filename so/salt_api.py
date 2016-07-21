@@ -234,9 +234,6 @@ def push_detail(request,jobid):
 def hostinfo():
 	list = hosts.objects.values_list('name','cpu','mem','ip','os','virt')
 	return list
-def device_group():
-	list = hosts.objects.values_list('name','cpu','mem','ip','os','virt')
-	return list
 def addgroup(request):
 		groupname = request.POST['groupname']
 		addone = groups(name = groupname)

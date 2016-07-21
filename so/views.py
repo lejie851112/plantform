@@ -14,7 +14,7 @@ from django.core.urlresolvers import reverse
 import zabbix_api	
 import ganglia_api
 import salt_api
-import api
+import api,device_api
 from so.forms import file_form,LoginForm
 import user_manage
 
@@ -466,10 +466,7 @@ def device_group(request):
 	data = {'device_group': salt_api.device_group()}
 	html = 'device_group.html'
 	return session_check(request,html,data)
-def idc(request):
-	data = {'idc': salt_api.device_group()}
-	html = 'idc.html'
-	return session_check(request,html,data)
+
 	#return render_to_response('push_detail.html',{'push_detail': salt_api.push_detail(request,jobid)})
 def update_host(request):
 	salt_api.update_host(request)
@@ -606,6 +603,12 @@ def user_gedit(request,id):
 	
 @login_required(login_url='/login/')		
 def idc(request):
-	data = {}
-	html = 'idc.html'
-	return session_check(request,html,data)
+	if request.method == 'POST':
+		#保存新建IDC
+		iname = request.POST['iname'] 
+		device_api.saveidc(iname)
+		return HttpResponseRedirect('/idc')
+	else:
+		data = {'idcs':device_api.showidc()}
+		html = 'idc.html'
+		return session_check(request,html,data)
