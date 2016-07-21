@@ -43,12 +43,14 @@ urlpatterns = [
 	 url(r'^update_host$', so.views.update_host),
 	 url(r'^update_device$', so.views.update_device),
 	 url(r'^ganglia$', so.views.ganglia),
-	 url(r'^device$', so.views.hostinfo),
+	 
 	 url(r'^remote$', so.views.remote),
 	 url(r'^uploadfile$', so.views.uploadfile),
 	 #url(r'^show_images$', so.views.show_images),
 	 url(r'^task_save$', so.views.task_save),
 	 url(r'^progress/(.+)/(.+)/(.+)/$', so.views.progress),
 	 url(r'^sysconf$', so.views.sysconf),
+     url(r'^device$', so.views.hostinfo),
+     url(r'^device_group$', so.views.device_group),
      url(r'^idc$', so.views.idc),
 ]
