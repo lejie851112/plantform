@@ -23,8 +23,6 @@ for i in lists:
 #     self.url = 'http://59.108.38.73:9988/zabbix/api_jsonrpc.php' 
 #     self.header = {"Content-Type":"application/json"}         
 
-def tttt():
-	print "aaaaaoooooa"
 
 def login(name,password,url):
 	# url = 'http://59.108.38.73:9988/zabbix/api_jsonrpc.php' 
