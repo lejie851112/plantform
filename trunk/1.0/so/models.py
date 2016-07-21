@@ -67,3 +67,17 @@ class userconf(models.Model):
     salt_user = models.CharField(max_length=32)
     salt_pass = models.CharField(max_length=128)
     salt_token = models.CharField(max_length=128)
+
+class devices(models.Model):
+    name = models.CharField(max_length=32)
+    def __str__(self):
+        return self.name
+class idc(models.Model):
+    name = models.CharField(max_length=32)
+    device = models.ManyToManyField(devices, through='devtoidc')
+    def __str__(self):
+        return self.name
+class devtoidc(models.Model):
+    #print "==relation==="
+    dname = models.ForeignKey(devices, on_delete=models.CASCADE)
+    iname = models.ForeignKey(idc, on_delete=models.CASCADE)

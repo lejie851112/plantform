@@ -11,28 +11,23 @@
 <div id="page-wrapper">
     <div class="row">
 	<div class="panel-body">
-                <div class="col-lg-11">
-						<ul class="nav nav-pills">
-								<li  class="active"><a href="salt_group" >Group</a></li> 
-                                <li><a href="salt_hosts">Hosts</a></li>                                                              
-						</ul>				
-				</div>
+               
 				<div class="col-lg-1 pull-right">
 							
                             <!-- Button trigger modal -->
                             <button class="btn btn-info" data-toggle="modal" data-target="#add">
-                                新建组
+                                新建IDC
                             </button>
                             <!-- Modal -->
                             <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add1" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">                                           
-                                            <h4 class="modal-title" id="add1">新建组</h4>
+                                            <h4 class="modal-title" id="add1">新建IDC</h4>
                                         </div>
                                         <div class="modal-footer ">    
 											<form action="" method="post">	
-											{% csrf_token %}
+											<!-- {% csrf_token %} -->
 												<div class="col-lg-6">
 												<input  class="form-control" type="text" placeholder="输入组名" name="groupname" />	
 												</div>
