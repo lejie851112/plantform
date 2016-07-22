@@ -85,6 +85,7 @@ class devices(models.Model):
     #
     description = models.CharField(max_length=128)
     createtime = models.DateTimeField()
+    updatetime = models.DateTimeField(auto_now=True)
     #
     devsn = models.CharField(max_length=32)
     compsn = models.CharField(max_length=32)
@@ -113,6 +114,7 @@ class idc(models.Model):
     address = models.CharField(max_length=128)
     description = models.CharField(max_length=128)
     createtime = models.DateTimeField()
+    updatetime = models.DateTimeField(auto_now=True)
     device = models.ManyToManyField(devices, through='devtoidc')
 
 #资产和组关系
