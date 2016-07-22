@@ -91,12 +91,18 @@
                                         <tr>	
 										<!-- <form action="/group_edit" method="post">   -->
 											
-                                            <td>{{ list.name }}</td>
+                                            <td>{{ list.idcname }}</td>
 											<td>
 											{%for host in list.devices%}											
 												{{ host }}<br>
 											{%endfor%}
 											</td>
+											<td>{{ list.contantname }}</td>
+											<td>{{ list.mobile }}</td>
+											<td>{{ list.phone }}</td>
+											<td>{{ list.email }}</td>
+											<td>{{ list.address }}</td>
+											<td>{{ list.description }}</td>
 											<td>
 												<a class="btn btn-outline btn-primary btn-xs" href='/idc_edit/{{list.name}}'>编辑</a>
 												<!-- <a class="btn btn-outline btn-primary btn-xs" href='/group_del/{{list.gname}}' onclick='mksure()'>删除</a> -->
