@@ -1,6 +1,7 @@
 #!/usr/bin/python 
 #coding:utf-8 
 
+import datetime,time
 from so.models import devices,idc,devtoidc,devtogroup
 
 
