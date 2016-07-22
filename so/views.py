@@ -600,9 +600,8 @@ def user_gedit(request,id):
 @login_required(login_url='/login/')		
 def idc(request):
 	if request.method == 'POST':
-		#保存新建IDC
-		iname = request.POST['iname'] 
-		device_api.saveidc(iname)
+		#保存IDC
+		device_api.saveidc(request)
 		return HttpResponseRedirect('/idc')
 	else:
 		data = {'idcs':device_api.showidc()}
