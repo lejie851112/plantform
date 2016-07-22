@@ -11,15 +11,13 @@ class hosts(models.Model):
     cpu = models.CharField(max_length=64) 
     mem = models.CharField(max_length=32) 
     virt= models.CharField(max_length=32) 
-    def __str__(self):
-        return self.name
+
 class groups(models.Model):
     #print "==groups==="
     #id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32)
     members = models.ManyToManyField(hosts, through='relation')
-    def __str__(self):
-        return self.name
+
 class relation(models.Model):
     #print "==relation==="
     groupname = models.ForeignKey(groups, on_delete=models.CASCADE)
@@ -67,25 +65,61 @@ class userconf(models.Model):
     salt_user = models.CharField(max_length=32)
     salt_pass = models.CharField(max_length=128)
     salt_token = models.CharField(max_length=128)
-
+#资产 
 class devices(models.Model):
-    name = models.CharField(max_length=32)
-    def __str__(self):
-        return self.name
+    hostname = models.CharField(max_length=32)
+    ip = models.CharField(max_length=32)
+    #ssh
+    sshport = models.CharField(max_length=32)
+    sshuser = models.CharField(max_length=32)
+    sshpass = models.CharField(max_length=32)
+    #虚拟化
+    hyper = models.CharField(max_length=32) #vimware xen hyper-v kvm  none
+    #
+    disk = models.CharField(max_length=32)
+    partion = models.CharField(max_length=128)
+    mem = models.CharField(max_length=32)
+    cputype = models.CharField(max_length=32)
+    cpunum = models.CharField(max_length=32)
+    os = models.CharField(max_length=32)
+    #
+    description = models.CharField(max_length=128)
+    createtime = models.DateTimeField()
+    #
+    devsn = models.CharField(max_length=32)
+    compsn = models.CharField(max_length=32)
+    remotecard = models.CharField(max_length=128)
+    remoteaddr = models.CharField(max_length=32)
+    remoteuser = models.CharField(max_length=32)
+    remotepass = models.CharField(max_length=32)
+    status = models.CharField(max_length=32)
+    #
+    racknum = models.CharField(max_length=32)
+    linenum = models.CharField(max_length=32)
+
+#资产组
 class devgroup(models.Model):
     name = models.CharField(max_length=32)
+    description = models.CharField(max_length=128)
     device = models.ManyToManyField(devices, through='devtogroup')
-    def __str__(self):
-        return self.name
+   
+#IDC
 class idc(models.Model):
-    name = models.CharField(max_length=32)
+    idcname = models.CharField(max_length=32)
+    contantname = models.CharField(max_length=32)
+    mobile = models.CharField(max_length=32)
+    phone = models.CharField(max_length=32)
+    email = models.CharField(max_length=32)
+    address = models.CharField(max_length=128)
+    description = models.CharField(max_length=128)
+    createtime = models.DateTimeField()
     device = models.ManyToManyField(devices, through='devtoidc')
-    def __str__(self):
-        return self.name
 
+#资产和组关系
 class devtogroup(models.Model):
     dname = models.ForeignKey(devices, on_delete=models.CASCADE)
     iname = models.ForeignKey(devgroup, on_delete=models.CASCADE)
+#资产和IDC关系
 class devtoidc(models.Model):
     #print "==relation==="
     dname = models.ForeignKey(devices, on_delete=models.CASCADE)
