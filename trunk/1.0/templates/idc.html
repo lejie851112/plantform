@@ -108,9 +108,9 @@
 											<td>{{ list.createtime }}</td>
 											<td>{{ list.updatetime }}</td>
 											<td>
-												<a class="btn btn-outline btn-primary btn-xs" href='/idc_edit/{{list.name}}'>编辑</a>
+												<a class="btn btn-outline btn-primary btn-xs" href='/idc_edit/{{list.id}}'>编辑</a>
 												<!-- <a class="btn btn-outline btn-primary btn-xs" href='/group_del/{{list.gname}}' onclick='mksure()'>删除</a> -->
-												<button id='idc_del' type='button' class="btn btn-outline btn-primary btn-xs" value='{{list.name}}' onclick='mksure()' >删除</button>
+												<button id='idc_del' type='button' class="btn btn-outline btn-primary btn-xs" value='{{list.id}}' onclick='mksure()' >删除</button>
 											</td>	
 										<!-- </form> -->
 										</tr>  
@@ -143,7 +143,7 @@
         });
     });
 	function mksure(){
-		idcnme = document.getElementById("idc_del").value;
+		idcid = document.getElementById("idc_del").value;
 		//alert(groupnme)
 		v = confirm('将删除IDC，不会删除其包含的主机。');
 		if (v == true){
@@ -151,7 +151,7 @@
 			//pass;
 		//}
 		//else{
-			window.location.href="/idc_del/" + idcnme ;
+			window.location.href="/idc_del/" + idcid ;
 		}
 	};
 	

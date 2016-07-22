@@ -53,4 +53,6 @@ urlpatterns = [
      url(r'^device$', so.views.hostinfo),
      url(r'^device_group$', so.views.device_group),
      url(r'^idc$', so.views.idc),
+    url(r'^idc_del/(.+)/$', so.views.idc_del),
+    url(r'^idc_edit/(.+)/$', so.views.idc_edit),
 ]
