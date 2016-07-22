@@ -32,6 +32,6 @@ def updateidc(request,idcid):
     email = request.POST['email']
     address = request.POST['address']
     description = request.POST['description']
-    old = idc.objects.get(id=idcid):
+    old = idc.objects.get(id=idcid)
     old.update(idcname=idcname,contantname=contantname,mobile=mobile,phone=phone,email=email,address=address,description=description)
     
