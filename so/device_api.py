@@ -20,3 +20,18 @@ def saveidc(request):
 def showidc():
     idcs = idc.objects.all()
     return idcs
+def idc_del(idcid):
+    i = idc.objects.get(id=idcid)  
+    i.device.clear()
+    i.delete()
+def updateidc(request,idcid):
+    idcname = request.POST['idcname'] 
+    contantname = request.POST['contantname'] 
+    mobile = request.POST['mobile']
+    phone = request.POST['phone']
+    email = request.POST['email']
+    address = request.POST['address']
+    description = request.POST['description']
+    old = idc.objects.get(id=idcid):
+    old.update(idcname=idcname,contantname=contantname,mobile=mobile,phone=phone,email=email,address=address,description=description)
+    

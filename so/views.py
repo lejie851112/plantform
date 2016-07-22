@@ -617,3 +617,13 @@ def device_group(request):
 		data = {'idcs':device_api.showidc()}
 		html = 'idc.html'
 		return session_check(request,html,data)
+
+@login_required(login_url='/login/')
+def idc_del(request,idcid):
+	device_api.idc_del(idcid)
+	return HttpResponseRedirect('/idc')	
+
+@login_required(login_url='/login/')
+def idc_edit(request,idcid):
+	device_api.updateidc(request,idcid)
+	return HttpResponseRedirect('/idc')	
