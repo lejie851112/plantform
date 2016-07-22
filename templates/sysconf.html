@@ -12,7 +12,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <form action="" method="post" id=''>
-							{%for config in conf%}
+						
 								<div  class="col-sm-2 form-group">
 								<label>zabbix username <span style="color:red">*</span></label> 
 								</div>
@@ -50,7 +50,7 @@
 								<div class="col-sm-10 form-group">
 								<input type="text" class="form-control" name='salturl' required="" value='{{config.salt_url}}'>
 								</div>	
-								{%endfor%}	
+							
 								<div class="col-lg-12 panel-body">
 								<!-- <button class="btn btn-primary" type="button" onclick='checkform()'>保存</button> -->
 								<input type="submit" class="btn btn-primary" value='保存'/>
