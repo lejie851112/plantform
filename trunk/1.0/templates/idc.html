@@ -82,6 +82,8 @@
 								<th>Email</th>	
 								<th>机房地址</th>
 								<th>备注</th>
+								<th>创建时间</th>
+								<th>更新时间</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -103,6 +105,8 @@
 											<td>{{ list.email }}</td>
 											<td>{{ list.address }}</td>
 											<td>{{ list.description }}</td>
+											<td>{{ list.createtime }}</td>
+											<td>{{ list.updatetime }}</td>
 											<td>
 												<a class="btn btn-outline btn-primary btn-xs" href='/idc_edit/{{list.name}}'>编辑</a>
 												<!-- <a class="btn btn-outline btn-primary btn-xs" href='/group_del/{{list.gname}}' onclick='mksure()'>删除</a> -->
