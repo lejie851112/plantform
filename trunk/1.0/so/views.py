@@ -519,7 +519,7 @@ def sysconf(request):
         # html = 'sysconf.html'
         # print "######get#####"
         # data = {'zauser':api.,'zapass':,'zaurl':,'salturl':,'saltuser':,'saltpass':,}
-        data = {'conf':api.showconf()}
+        data = {'config':api.showconf()}
         html = 'sysconf.html'
         print data 
         return session_check(request,html,data)
