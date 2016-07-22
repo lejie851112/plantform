@@ -8,10 +8,10 @@ from django.core.urlresolvers import reverse
 
 def showconf():
     lists = userconf.objects.all()
-    print "#################"
+    # print "#################"
     for i in lists:
-        print i.zabbix_user
-    return lists
+        # print i.zabbix_user
+        return i
 def updateconf(request):
 	# cuser = request.session['name']
 	# cname = request.POST['configname']
