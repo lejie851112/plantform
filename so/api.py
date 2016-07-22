@@ -51,14 +51,18 @@ def updateconf(request):
     tsalt_user = request.POST['saltuser']
     tsalt_pass = request.POST['saltpass']
     tsalt_url = request.POST['salturl']
-    ttoken = login(tzabbix_user,tzabbix_pass,tzabbix_url)
-    tsalt_token = user_login(tsalt_user,tsalt_pass)
-    print tsalt_token
+
     lists = userconf.objects.all()
     for one in lists:
         one.delete()
-    new = userconf(zabbix_user=tzabbix_user,zabbix_pass=tzabbix_pass,zabbix_url=tzabbix_url,salt_user=tsalt_user,salt_pass=tsalt_pass,salt_url=tsalt_url,zabbix_token=ttoken,salt_token=tsalt_token)
+    new = userconf(zabbix_user=tzabbix_user,zabbix_pass=tzabbix_pass,zabbix_url=tzabbix_url,salt_user=tsalt_user,salt_pass=tsalt_pass,salt_url=tsalt_url)
     new.save()
+    #
+    ttoken = login(tzabbix_user,tzabbix_pass,tzabbix_url)
+    tsalt_token = user_login(tsalt_user,tsalt_pass)
+    new1 = userconf.objects.filter(zabbix_user=tzabbix_user)
+    new1.update(zabbix_token=ttoken,salt_token=tsalt_token)
+
 def require_role(role='user'):
     """
     decorator for require user role in ["super", "admin", "user"]
