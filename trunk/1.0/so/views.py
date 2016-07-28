@@ -597,7 +597,7 @@ def user_gedit(request,id):
         # print data 
         return session_check(request,html,data)
 	
-@login_required(login_url='/login/')		
+@login_required(login_url='/login/')
 def idc(request):
 	if request.method == 'POST':
 		#保存IDC
@@ -607,6 +607,7 @@ def idc(request):
 		data = {'idcs':device_api.showidc()}
 		html = 'idc.html'
 		return session_check(request,html,data)
+@login_required(login_url='/login/')	
 def device_group(request):
 	if request.method == 'POST':
 		#保存新建组
@@ -643,5 +644,10 @@ def grp_edit(request,gid):
 		return session_check(request,html,data)
 @login_required(login_url='/login/')
 def grp_del(request,gid):
-	device_api.grp_del(gid)
+	device_api.grpdel(gid)
 	return HttpResponseRedirect('/device_group')
+#
+def device(request):
+	data = {'devs':device_api.showdev()}
+	html = 'device.html'
+	return session_check(request,html,data)
