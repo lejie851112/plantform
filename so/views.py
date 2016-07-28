@@ -641,3 +641,7 @@ def grp_edit(request,gid):
 		data = {'grpinfo':device_api.grpinfo(gid)}
 		html = 'gedit.html'
 		return session_check(request,html,data)
+@login_required(login_url='/login/')
+def grp_del(request,gid):
+	device_api.grp_del(gid)
+	return HttpResponseRedirect('/device_group')

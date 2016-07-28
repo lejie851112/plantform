@@ -4,46 +4,26 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">编辑IDC</h1>
+                    <h1 class="page-header">编辑组</h1>
                 </div>
             </div>
             <div class="row">
                      <div class="col-lg-12">
                         <div class="panel-body">
-                            <form  id='editidc' action="" method="post">
+                            <form  id='edit' action="" method="post">
 						
 								<div class="col-lg-7">
 								<label>名称：</label> 
-								<input id='idcname' type="text" class="form-control" name='idcname' value='{{idcinfo.idcname}}'>
-								</div>
-								<div class="col-lg-7">
-								<label>联系人：</label> 
-								<input  type="text" class="form-control" name='contantname' value='{{idcinfo.contantname}}'>
-								</div>
-								<div class="col-lg-7">
-								<label>手机：</label> 
-								<input type="text" class="form-control" name='mobile' value='{{idcinfo.mobile}}'>
-								</div>
-								<div class="col-lg-7">
-								<label>座机：</label> 
-								<input   type="text" class="form-control" name='phone' value='{{idcinfo.phone}}'>
-								</div>
-								<div class="col-lg-7">
-								<label>Email：</label> 
-								<input  type="text" class="form-control" name='email' value='{{idcinfo.email}}'>
-								</div>
-								<div class="col-lg-7">
-								<label>地址：</label> 
-								<input  type="text" class="form-control" name='address' value='{{idcinfo.address}}'>
+								<input id='name' type="text" class="form-control" name='name' value='{{grpinfo.name}}'>
 								</div>
 								<div class="col-lg-7">
 								<label>备注：</label> 
-								<input  type="text" class="form-control" name='description' value='{{idcinfo.description}}'>
+								<input  type="text" class="form-control" name='description' value='{{grpinfo.description}}'>
 								</div>
 								<div class="col-lg-12 panel-body">
 								<button class="btn btn-primary" type="button" onclick='checkform()'>保存</button>
 								<!-- <input type="submit" class="btn btn-primary" value='保存'/> -->
-								<a href='/idc' class="btn btn-primary">取消</a>
+								<a href='/device_group' class="btn btn-primary">取消</a>
 								</div>
 							</form>
 	                    </div>
@@ -55,8 +35,8 @@
 
     <script type="text/javascript">
 	function checkform() {  
-		document.getElementById("idcname").removeAttribute("disabled");
-		$('#editidc').submit();	
+		// document.getElementById("name").removeAttribute("disabled");
+		$('#edit').submit();	
     };
     </script>
 	

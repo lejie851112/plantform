@@ -86,7 +86,7 @@
 											<td>
 												<a class="btn btn-outline btn-primary btn-xs" href='/grp_edit/{{list.id}}'>编辑</a>
 												<!-- <a class="btn btn-outline btn-primary btn-xs" href='/group_del/{{list.gname}}' onclick='mksure()'>删除</a> -->
-												<button id='group_del' type='button' class="btn btn-outline btn-primary btn-xs" value='{{list.name}}' onclick='mksure()' >删除</button>
+												<button id='group_del' type='button' class="btn btn-outline btn-primary btn-xs" value='{{list.id}}' onclick='mksure()' >删除</button>
 											</td>	
 										<!-- </form> -->
 										</tr>  
@@ -119,7 +119,7 @@
         });
     });
 	function mksure(){
-		groupnme = document.getElementById("group_del").value;
+		gid = document.getElementById("group_del").value;
 		//alert(groupnme)
 		v = confirm('将删除组，不会删除其包含的主机。');
 		if (v == true){
@@ -127,7 +127,7 @@
 			//pass;
 		//}
 		//else{
-			window.location.href="/group_del/" + groupnme ;
+			window.location.href="/grp_del/" + gid ;
 		}
 	};
 	
