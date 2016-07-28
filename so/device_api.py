@@ -2,7 +2,7 @@
 #coding:utf-8 
 
 import datetime,time
-from so.models import devices,idc,devtoidc,devtogroup
+from so.models import *
 
 #about idc
 def saveidc(request):
@@ -21,22 +21,22 @@ def showidc():
     idcs = idc.objects.all()
     return idcs
 def idcinfo(idcid):
-    idcs = idc.objects.filter(id=idcid)
+    idcs = idc.objects.get(id=idcid)
     return idcs
 def idcdel(idcid):
     i = idc.objects.get(id=idcid)  
     i.device.clear()
     i.delete()
 def updateidc(request,idcid):
-    idcname = request.POST['idcname'] 
-    contantname = request.POST['contantname'] 
-    mobile = request.POST['mobile']
-    phone = request.POST['phone']
-    email = request.POST['email']
-    address = request.POST['address']
-    description = request.POST['description']
-    old = idc.objects.get(id=idcid)
-    old.update(idcname=idcname,contantname=contantname,mobile=mobile,phone=phone,email=email,address=address,description=description)
+    uidcname = request.POST['idcname'] 
+    ucontantname = request.POST['contantname'] 
+    umobile = request.POST['mobile']
+    uphone = request.POST['phone']
+    uemail = request.POST['email']
+    uaddress = request.POST['address']
+    udescription = request.POST['description']
+    old = idc.objects.filter(id=idcid)
+    old.update(idcname=uidcname,contantname=ucontantname,mobile=umobile,phone=uphone,email=uemail,address=uaddress,description=udescription)
 #about dev group
 def savegrp(request):
     idcname = request.POST['idcname'] 
@@ -54,10 +54,10 @@ def showgrp():
     grps = devgroup.objects.all()
     return grps
 
-def grpinfo():
+# def grpinfo():
 
-def grpdel():
+# def grpdel():
 
-def grpupdate():
+# def grpupdate():
 
 
