@@ -57,10 +57,15 @@ def grpdel(gid):
     i = devgroup.objects.get(id=gid)  
     i.device.clear()
     i.delete()
-def grpupdate(,request,gid):
-    name = request.POST['groupname'] 
+def grpupdate(request,gid):
+    name = request.POST['name'] 
     description = request.POST['description']
     grps = devgroup.objects.filter(id=gid)
     grps.update(name=name,description=description)
+
+#about device
+def showdev():
+    devs = devices.objects.all()
+    return devs
 
 
