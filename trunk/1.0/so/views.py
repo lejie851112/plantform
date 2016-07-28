@@ -651,3 +651,11 @@ def device(request):
 	data = {'devs':device_api.showdev()}
 	html = 'device.html'
 	return session_check(request,html,data)
+def device_add(request):
+	if request.method == 'POST':
+		device_api.device_add(request)
+		return HttpResponseRedirect('/device')	
+	else:
+		data = {}
+		html = 'device_add.html'
+		return session_check(request,html,data)
