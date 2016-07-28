@@ -625,5 +625,10 @@ def idc_del(request,idcid):
 
 @login_required(login_url='/login/')
 def idc_edit(request,idcid):
-	device_api.updateidc(request,idcid)
-	return HttpResponseRedirect('/idc')	
+	if request.method == 'POST':
+		device_api.updateidc(request,idcid)
+		return HttpResponseRedirect('/idc')	
+	else:
+		data = {'idcinfo':device_api.idcinfo(idcid)}
+		html = 'idc_edit.html'
+		return session_check(request,html,data)
