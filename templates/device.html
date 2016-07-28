@@ -38,22 +38,22 @@
 								<th class="text-center">
                                     <input id="checkall" type="checkbox" class="i-checks" name="checkall" value="checkall" data-editable='false' onclick="check_all('asset_form')">
                                 </th>
-								<th>Host</th>
+								<th>主机名</th>
 								<!-- <th>IP</th> -->
-								<th>CPU Cores</th>
-								<th>MEM(KB)</th>
-								<th>IP</th>
-								<th>OS</th>
-								<th>Type</th>
-								<th>DISK</th> 
+								<th>CPU核数</th>
+								<th>内存</th>
+								<th>IP地址</th>
+								<th>操作系统</th>
+								<th>主机类型</th>
+								<th>硬盘</th> 
 								<th>IDC</th>
-								<th>HGroup</th>
+								<th>资产组</th>
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
 					
-									{% for dev in devs %}
+									<!-- {% for dev in devs %} -->
 										                                                           
                                       	<td>{{dev.hostname}}</td>
 										<td>{{dev.cpunum}}</td>
@@ -71,7 +71,7 @@
                                     </td>
                                         
                                   										
-									{% endfor %}
+									<!-- {% endfor %} -->
 						</tbody>
                     </table>
 					</div>
