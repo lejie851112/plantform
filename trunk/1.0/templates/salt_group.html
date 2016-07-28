@@ -32,7 +32,7 @@
                                         </div>
                                         <div class="modal-footer ">    
 											<form action="" method="post">	
-											{% csrf_token %}
+										
 												<div class="col-lg-6">
 												<input  class="form-control" type="text" placeholder="输入组名" name="groupname" />	
 												</div>
@@ -73,7 +73,7 @@
                                             <td>{{ list.gname }}</td>
 											<td>
 											{%for host in list.hosts%}											
-												{{ host }}<br>
+												{{ host.name }}<br>
 											{%endfor%}
 											</td>
 											<td>

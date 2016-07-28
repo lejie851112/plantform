@@ -66,6 +66,27 @@ def grpupdate(request,gid):
 #about device
 def showdev():
     devs = devices.objects.all()
+    # relation_set.all()
     return devs
+def device_add(request):
+    hostname = request.POST['name']
+    ip = request.POST['ip']
+    sshport = request.POST['sshport']
+    sshuser = request.POST['sshuser']
+    sshpass = request.POST['sshpass']
+    description = request.POST['description']
+    devgrp = request.POST['dev_grp']
+    devidc = request.POST['dev_idc']
+    ctime = datetime.datetime.now()
+    
+    if not devices.objects.filter(hostname=hostname):
+        sql = devices(hostname=hostname,ip=ip,sshport=sshport,sshuser=sshuser,sshpass=sshpass,createtime=ctime,description=description)
+        sql.save()
+        dev = devices.objects.get(hostname=hostname)
+
+        devgroup(name=devgrp,device=dev).save()
+        idc(idcname=devidc,device=dev).save()
+
+
 
 

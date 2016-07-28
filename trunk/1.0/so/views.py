@@ -656,6 +656,14 @@ def device_add(request):
 		device_api.device_add(request)
 		return HttpResponseRedirect('/device')	
 	else:
-		data = {}
+		data = {'groups':device_api.showgrp(),'idcs':device_api.showidc()}
 		html = 'device_add.html'
+		return session_check(request,html,data)
+def device_edit(request,devid):
+	if request.method == 'POST':
+		device_api.device_update(request,devid)
+		return HttpResponseRedirect('/device')	
+	else:
+		data = {'devinfo':device_api.devinfo(devid)}
+		html = 'device_edit.html'
 		return session_check(request,html,data)
