@@ -13,23 +13,23 @@
                 <form  action="" method="post">
                 <div class="col-lg-7">
                 <label>主机名：</label> 
-                <input type="text" class="form-control" name='name' value="devinfo.hostname">
+                <input type="text" class="form-control" name='name' value="{{devinfo.hostname}}">
                 </div>
                 <div class="col-lg-7">
                 <label>IP：</label> 
-                <input  type="text" class="form-control" name='ip' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='ip' value="{{devinfo.ip}}">
                 </div>
                 <div class="col-lg-7">
                 <label>ssh端口：</label> 
-                <input type="text" class="form-control" name='sshport' value="devinfo.hostname">
+                <input type="text" class="form-control" name='sshport' value="{{devinfo.sshport}}">
                 </div>
                 <div class="col-lg-7">
                 <label>ssh用户：</label> 
-                <input   type="text" class="form-control" name='sshuser' value="devinfo.hostname">
+                <input   type="text" class="form-control" name='sshuser' value="{{devinfo.sshuser}}">
                 </div>
                 <div class="col-lg-7">
                 <label>ssh密码：</label> 
-                <input  type="text" class="form-control" name='sshpass' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='sshpass' value="{{devinfo.sshpass}}">
                 </div>
                 <div class="col-lg-7">
                 <label>资产组：</label> 
@@ -37,7 +37,11 @@
                     <option value='None'>None</option>
                     <!-- <option>None</option> -->
                 {%for g in groups%}
+                    {% if g.name == devinfo.gname %}
+                    <option selected="selected">{{g.name}}</option>
+                    {%else%}
                     <option>{{g.name}}</option>
+                    {%endif%}
                 {%endfor%}
                 </select>
                 </div>
@@ -53,45 +57,48 @@
                 </div>
                 <div class="col-lg-7">
                 <label>CPU核数：</label> 
-                <input  type="text" class="form-control" name='cpunum' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='cpunum' value="{{devinfo.cpunum}}">
                 </div>
                 <div class="col-lg-7">
                 <label>内存：</label> 
-                <input  type="text" class="form-control" name='mem' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='mem' value="{{devinfo.mem}}">
                 </div>
                 <div class="col-lg-7">
                 <label>操作系统：</label> 
-                <input  type="text" class="form-control" name='os' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='os' value="{{devinfo.os}}">
                 </div>
                 <div class="col-lg-7">
                 <label>主机类型：</label> 
-                <input  type="text" class="form-control" name='hyper' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='hyper' value="{{devinfo.hyper}}">
                 </div>
                 <div class="col-lg-7">
                 <label>硬盘：</label> 
-                <input  type="text" class="form-control" name='disk' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='disk' value="{{devinfo.disk}}">
                 </div>
                 <div class="col-lg-7">
                 <label>分区：</label> 
-                <input  type="text" class="form-control" name='partion' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='partion' value="{{devinfo.partion}}">
                 </div>
                 <div class="col-lg-7">
                 <label>远程卡：</label> 
-                <input  type="text" class="form-control" name='remotecard' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='remotecard' value="{{devinfo.remotecard}}">
                 </div>
+                <div class="col-lg-7">
                 <label>远程卡IP：</label> 
-                <input  type="text" class="form-control" name='remoteaddr' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='remoteaddr' value="{{devinfo.remoteaddr}}">
                 </div>
+                <div class="col-lg-7">
                 <label>远程卡用户：</label> 
-                <input  type="text" class="form-control" name='remoteuser' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='remoteuser' value="{{devinfo.remoteuser}}">
                 </div>
+                <div class="col-lg-7">
                 <label>远程卡密码：</label> 
-                <input  type="text" class="form-control" name='remotepass' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='remotepass' value="{{devinfo.remotepass}}">
                 </div>
                 
                 <div class="col-lg-7">
                 <label>备注：</label> 
-                <input  type="text" class="form-control" name='description' value="devinfo.hostname">
+                <input  type="text" class="form-control" name='description' value="{{devinfo.description}}">
                 </div>
                 <div class="col-lg-12 panel-body">
                 <!-- <button class="btn btn-primary" type="sumbit">保存</button> -->
