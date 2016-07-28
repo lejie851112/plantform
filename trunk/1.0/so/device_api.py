@@ -20,6 +20,9 @@ def saveidc(request):
 def showidc():
     idcs = idc.objects.all()
     return idcs
+def idcinfo(idcid):
+    idcs = idc.objects.filter(id=idcid)
+    return idcs
 def idc_del(idcid):
     i = idc.objects.get(id=idcid)  
     i.device.clear()
