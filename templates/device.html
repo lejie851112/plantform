@@ -11,7 +11,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">				
 		<div class="panel-body">  
-		
+
 			<form>
 				<div class="row"> 
 
@@ -56,25 +56,28 @@
 						<tbody>
 					
 								
-										                                                           
+							{% for dev in devs %}  
+								<tr>                                               
                                       	<td class="text-center" name="id" value="" data-editable='false'>
                                         <input name="id" value="" type="checkbox" class="i-checks">
                                     	</td>
-                                      	<td>"deva"</td>
-										<td>de</td>
-										<td>de</td>
-										<td>de</td>
-										<td>dev</td>
-										<td>dme</td>
-										<td>dename</td>
-										<td>dename</td>
-										<td>destname</td>
+                                      	<td><a href="/devdetail/{{dev.id}}/">{{dev.hostname}}</a></td>
+                                      	<td>{{dev.cpunum}}</td>
+                                      	<td>{{dev.mem}}</td>
+                                      	<td>{{dev.ip}}</td>
+                                      	<td>{{dev.os}}</td>
+                                      	<td>{{dev.hyper}}</td>
+                                      	<td>{{dev.disk}}</td>
+                                      	<td>{{dev}}</td>
+                                      	<td>{{dev}}</td>
+									
                                         <td class="text-center" data-editable='false'>
-                                        <a href="" class="btn btn-xs btn-info">编辑</a>
-                                        <a value="" class="conn btn btn-xs btn-warning">连接</a>
-                                        <a value="" class="btn btn-xs btn-danger">删除</a>
+                                        <a href="/device_edit/{{dev.id}}/" class="btn btn-xs btn-info">编辑</a>
+                                        <a href="" class="btn btn-xs btn-warning">连接</a>
+                                        <a href="" class="btn btn-xs btn-danger">删除</a>
                                    		</td>
-                                        
+                                </tr>
+                           {%endfor%}      
                               
 						</tbody>
                     </table>

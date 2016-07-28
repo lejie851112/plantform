@@ -23,7 +23,7 @@
 							<label>已选：</label>
 							<select id='selected' name='host_selected'  multiple="multiple" class="form-control" size='20' >
 							{%for host in hosts_selected%}
-                            <option>{{host}}</option>
+                            <option>{{host.name}}</option>
 							{%endfor%}
 							</select>
 						</div>
@@ -37,7 +37,7 @@
 							<label>全部：</label>
 							<select id='unselected' name='host_unselected' multiple="multiple" class="form-control" size='20'>
 							{%for host in hosts_unselected%}
-                            <option>{{host}}</option>
+                            <option>{{host.name}}</option>
 							{%endfor%}
 							</select>
 						</div>
