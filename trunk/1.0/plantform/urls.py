@@ -56,4 +56,5 @@ urlpatterns = [
     url(r'^idc_del/(.+)/$', so.views.idc_del),
     url(r'^idc_edit/(.+)/$', so.views.idc_edit),
     url(r'^grp_edit/(.+)/$', so.views.grp_edit),
+    url(r'^grp_del/(.+)/$', so.views.grp_del),
 ]

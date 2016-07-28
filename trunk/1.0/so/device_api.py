@@ -50,10 +50,17 @@ def showgrp():
     grps = devgroup.objects.all()
     return grps
 
-def grpinfo():
-
-def grpdel():
-
-def grpupdate():
+def grpinfo(gid):
+    grps = devgroup.objects.get(id=gid)
+    return grps
+def grpdel(gid):
+    i = devgroup.objects.get(id=gid)  
+    i.device.clear()
+    i.delete()
+def grpupdate(,request,gid):
+    name = request.POST['groupname'] 
+    description = request.POST['description']
+    grps = devgroup.objects.filter(id=gid)
+    grps.update(name=name,description=description)
 
 
