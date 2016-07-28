@@ -4,7 +4,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">添加设备</h1>
+                    <h1 class="page-header">编辑设备</h1>
                 </div>
             </div>
             <div class="row">
@@ -13,23 +13,23 @@
                 <form  action="" method="post">
                 <div class="col-lg-7">
                 <label>主机名：</label> 
-                <input type="text" class="form-control" name='name'>
+                <input type="text" class="form-control" name='name' value="devinfo.hostname">
                 </div>
                 <div class="col-lg-7">
                 <label>IP：</label> 
-                <input  type="text" class="form-control" name='ip'>
+                <input  type="text" class="form-control" name='ip' value="devinfo.hostname">
                 </div>
                 <div class="col-lg-7">
                 <label>ssh端口：</label> 
-                <input type="text" class="form-control" name='sshport'>
+                <input type="text" class="form-control" name='sshport' value="devinfo.hostname">
                 </div>
                 <div class="col-lg-7">
                 <label>ssh用户：</label> 
-                <input   type="text" class="form-control" name='sshuser'>
+                <input   type="text" class="form-control" name='sshuser' value="devinfo.hostname">
                 </div>
                 <div class="col-lg-7">
                 <label>ssh密码：</label> 
-                <input  type="text" class="form-control" name='sshpass'>
+                <input  type="text" class="form-control" name='sshpass' value="devinfo.hostname">
                 </div>
                 <div class="col-lg-7">
                 <label>资产组：</label> 
@@ -52,8 +52,46 @@
                 </select>
                 </div>
                 <div class="col-lg-7">
+                <label>CPU核数：</label> 
+                <input  type="text" class="form-control" name='cpunum' value="devinfo.hostname">
+                </div>
+                <div class="col-lg-7">
+                <label>内存：</label> 
+                <input  type="text" class="form-control" name='mem' value="devinfo.hostname">
+                </div>
+                <div class="col-lg-7">
+                <label>操作系统：</label> 
+                <input  type="text" class="form-control" name='os' value="devinfo.hostname">
+                </div>
+                <div class="col-lg-7">
+                <label>主机类型：</label> 
+                <input  type="text" class="form-control" name='hyper' value="devinfo.hostname">
+                </div>
+                <div class="col-lg-7">
+                <label>硬盘：</label> 
+                <input  type="text" class="form-control" name='disk' value="devinfo.hostname">
+                </div>
+                <div class="col-lg-7">
+                <label>分区：</label> 
+                <input  type="text" class="form-control" name='partion' value="devinfo.hostname">
+                </div>
+                <div class="col-lg-7">
+                <label>远程卡：</label> 
+                <input  type="text" class="form-control" name='remotecard' value="devinfo.hostname">
+                </div>
+                <label>远程卡IP：</label> 
+                <input  type="text" class="form-control" name='remoteaddr' value="devinfo.hostname">
+                </div>
+                <label>远程卡用户：</label> 
+                <input  type="text" class="form-control" name='remoteuser' value="devinfo.hostname">
+                </div>
+                <label>远程卡密码：</label> 
+                <input  type="text" class="form-control" name='remotepass' value="devinfo.hostname">
+                </div>
+                
+                <div class="col-lg-7">
                 <label>备注：</label> 
-                <input  type="text" class="form-control" name='description'>
+                <input  type="text" class="form-control" name='description' value="devinfo.hostname">
                 </div>
                 <div class="col-lg-12 panel-body">
                 <!-- <button class="btn btn-primary" type="sumbit">保存</button> -->
