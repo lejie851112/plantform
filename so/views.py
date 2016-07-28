@@ -609,18 +609,17 @@ def idc(request):
 		return session_check(request,html,data)
 def device_group(request):
 	if request.method == 'POST':
-		#保存新建IDC
-		iname = request.POST['iname'] 
-		device_api.saveidc(iname)
+		#保存新建组
+		device_api.savedevgroup(request)
 		return HttpResponseRedirect('/idc')
 	else:
-		data = {'idcs':device_api.showidc()}
-		html = 'idc.html'
+		data = {'grps':device_api.showgrp()}
+		html = 'device_group.html'
 		return session_check(request,html,data)
 
 @login_required(login_url='/login/')
 def idc_del(request,idcid):
-	device_api.idc_del(idcid)
+	device_api.idcdel(idcid)
 	return HttpResponseRedirect('/idc')	
 
 @login_required(login_url='/login/')
