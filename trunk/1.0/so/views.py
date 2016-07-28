@@ -610,8 +610,8 @@ def idc(request):
 def device_group(request):
 	if request.method == 'POST':
 		#保存新建组
-		device_api.savedevgroup(request)
-		return HttpResponseRedirect('/idc')
+		device_api.savegrp(request)
+		return HttpResponseRedirect('/device_group')
 	else:
 		data = {'grps':device_api.showgrp()}
 		html = 'device_group.html'
@@ -630,4 +630,14 @@ def idc_edit(request,idcid):
 	else:
 		data = {'idcinfo':device_api.idcinfo(idcid)}
 		html = 'idc_edit.html'
+		return session_check(request,html,data)
+
+@login_required(login_url='/login/')
+def grp_edit(request,gid):
+	if request.method == 'POST':
+		device_api.grpupdate(request,gid)
+		return HttpResponseRedirect('/device_group')	
+	else:
+		data = {'grpinfo':device_api.grpinfo(gid)}
+		html = 'gedit.html'
 		return session_check(request,html,data)
