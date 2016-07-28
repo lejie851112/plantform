@@ -664,6 +664,6 @@ def device_edit(request,devid):
 		device_api.device_update(request,devid)
 		return HttpResponseRedirect('/device')	
 	else:
-		data = {'devinfo':device_api.devinfo(devid)}
+		data = {'devinfo':device_api.dinfo(devid)}
 		html = 'device_edit.html'
 		return session_check(request,html,data)

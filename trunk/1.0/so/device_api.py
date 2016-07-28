@@ -86,6 +86,9 @@ def device_add(request):
 
         devgroup(name=devgrp,device=dev).save()
         idc(idcname=devidc,device=dev).save()
+def dinfo(devid):
+    info = devices.objects.get(id=devid)
+    return info
 
 
 
