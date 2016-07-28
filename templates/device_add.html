@@ -8,45 +8,41 @@
                 </div>
             </div>
             <div class="row">
-                     <div class="col-lg-12">
-                        <div class="panel-body">
-                            <form  id='editidc' action="" method="post">
+            div class="col-lg-12">
+            <div class="panel-body">
+                <form  id='editidc' action="" method="post">
             
                 <div class="col-lg-7">
-                <label>名称：</label> 
+                <label>主机名：</label> 
                 <input id='idcname' type="text" class="form-control" name='idcname' value='{{idcinfo.idcname}}'>
                 </div>
                 <div class="col-lg-7">
-                <label>联系人：</label> 
+                <label>IP：</label> 
                 <input  type="text" class="form-control" name='contantname' value='{{idcinfo.contantname}}'>
                 </div>
                 <div class="col-lg-7">
-                <label>手机：</label> 
+                <label>ssh 端口：</label> 
                 <input type="text" class="form-control" name='mobile' value='{{idcinfo.mobile}}'>
                 </div>
                 <div class="col-lg-7">
-                <label>座机：</label> 
+                <label>ssh用户：</label> 
                 <input   type="text" class="form-control" name='phone' value='{{idcinfo.phone}}'>
                 </div>
                 <div class="col-lg-7">
-                <label>Email：</label> 
+                <label>ssh密码：</label> 
                 <input  type="text" class="form-control" name='email' value='{{idcinfo.email}}'>
-                </div>
-                <div class="col-lg-7">
-                <label>地址：</label> 
-                <input  type="text" class="form-control" name='address' value='{{idcinfo.address}}'>
                 </div>
                 <div class="col-lg-7">
                 <label>备注：</label> 
                 <input  type="text" class="form-control" name='description' value='{{idcinfo.description}}'>
                 </div>
                 <div class="col-lg-12 panel-body">
-                <button class="btn btn-primary" type="button" onclick='checkform()'>保存</button>
+                <button class="btn btn-primary" type="sumbit">保存</button>
                 <!-- <input type="submit" class="btn btn-primary" value='保存'/> -->
-                <a href='/idc' class="btn btn-primary">取消</a>
+                <a href='/device' class="btn btn-primary">取消</a>
                 </div>
               </form>
-                      </div>
+            </div>
             </div>
       </div>
     </div>
