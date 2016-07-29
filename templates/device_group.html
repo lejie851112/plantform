@@ -65,7 +65,7 @@
 						<thead>
 							<tr>
 								<th>名称</th>
-								<th>主机</th>		
+								<th>主机数</th>		
 								<th>描述</th>
 								<th>操作</th>
 							</tr>
@@ -73,22 +73,15 @@
 						<tbody>
 									{% for list in grps %}
 									
-                                        <tr>	
-										<!-- <form action="/group_edit" method="post">   -->
-											
+                                        <tr>
                                             <td>{{ list.name }}</td>
-											<td>
-											{%for host in list.hosts%}											
-												{{ host }}<br>
-											{%endfor%}
-											</td>
+											<td>{{ list.host }}</td>
 											<td>{{list.description}}</td>
 											<td>
 												<a class="btn btn-outline btn-primary btn-xs" href='/grp_edit/{{list.id}}'>编辑</a>
 												<!-- <a class="btn btn-outline btn-primary btn-xs" href='/group_del/{{list.gname}}' onclick='mksure()'>删除</a> -->
 												<button id='group_del' type='button' class="btn btn-outline btn-primary btn-xs" value='{{list.id}}' onclick='mksure()' >删除</button>
-											</td>	
-										<!-- </form> -->
+											</td>
 										</tr>  
 									
 									{% endfor %}

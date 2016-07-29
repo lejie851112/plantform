@@ -12,7 +12,7 @@
         <div class="panel panel-default">				
 		<div class="panel-body">  
 
-			<form>
+			<form id='dev_form'>
 				<div class="row"> 
 
              	<div class="col-lg-6" style="padding-left: 0">
@@ -38,7 +38,7 @@
 						<thead>
 							<tr>
 								<th class="text-center">
-                                    <input id="checkall" type="checkbox" class="i-checks" name="checkall" value="checkall" data-editable='false' onclick="check_all('')">
+                                    <input id="checkall" type="checkbox" class="i-checks" name="checkall" value="checkall" data-editable='false' onclick="check_all('dev_form')">
                                 </th>
 								<th>主机名</th>
 								<!-- <th>IP</th> -->
@@ -57,24 +57,32 @@
 					
 								
 							{% for dev in devs %}  
-								<tr>                                               
-                                      	<td class="text-center" name="id" value="" data-editable='false'>
-                                        <input name="id" value="" type="checkbox" class="i-checks">
+								<tr class="gradeX">                                               
+                                      	<td class="text-center" name="id" value="{{dev.info.id}}" data-editable='false'>
+                                        <input name="id" value="{{dev.info.id}}" type="checkbox" class="i-checks">
                                     	</td>
-                                      	<td><a href="/devdetail/{{dev.id}}/">{{dev.hostname}}</a></td>
-                                      	<td>{{dev.cpunum}}</td>
-                                      	<td>{{dev.mem}}</td>
-                                      	<td>{{dev.ip}}</td>
-                                      	<td>{{dev.os}}</td>
-                                      	<td>{{dev.hyper}}</td>
-                                      	<td>{{dev.disk}}</td>
-                                      	<td>{{dev}}</td>
-                                      	<td>{{dev}}</td>
+                                      	<td><a href="/devdetail/{{dev.info.id}}/">{{dev.info.hostname}}</a></td>
+                                      	<td>{{dev.info.cpunum}}</td>
+                                      	<td>{{dev.info.mem}}</td>
+                                      	<td>{{dev.info.ip}}</td>
+                                      	<td>{{dev.info.os}}</td>
+                                      	<td>{{dev.info.hyper}}</td>
+                                      	<td>{{dev.info.disk}}</td>
+                                      	<td>
+                                        {%for g in dev.group%}
+                                        {{g}}</br>
+                                        {%endfor%}
+                                        </td>
+                                      	<td>
+                                        {%for i in dev.idc%}
+                                        {{i}}</br>
+                                        {%endfor%}
+                                        </td>
 									
                                         <td class="text-center" data-editable='false'>
-                                        <a href="/device_edit/{{dev.id}}/" class="btn btn-xs btn-info">编辑</a>
+                                        <a href="/device_edit/{{dev.info.id}}/" class="btn btn-xs btn-info">编辑</a>
                                         <a href="" class="btn btn-xs btn-warning">连接</a>
-                                        <a href="" class="btn btn-xs btn-danger">删除</a>
+                                        <a value="/device_del/?id={{dev.info.id}}" class="btn btn-xs btn-danger asset_del">删除</a>
                                    		</td>
                                 </tr>
                            {%endfor%}      
@@ -87,7 +95,7 @@
                                 <input type="button" id="asset_del" class="btn btn-danger btn-sm"  name="del_button" value="删除"/>
                                 <a value="" type="button" class="btn btn-sm btn-warning iframe">修改</a>
                                 <input type="button" id="asset_update" class="btn btn-info btn-sm"  name="update_button" value="更新"/>
-                               <input type="button" id="asset_update_all" class="btn btn-primary btn-sm"  name="update_button" value="更新全部"/>
+                               <!-- <input type="button" id="asset_update_all" class="btn btn-primary btn-sm"  name="update_button" value="更新全部"/> -->
                                 <input type="button" id="exec_cmd" class="btn btn-sm btn-primary"  name="exec_cmd" value="执行命令"/>
                 </div>
 				</div>
@@ -101,11 +109,53 @@
 
 
 {% block add_script %}
-    <!-- DataTables JavaScript -->
-    <!-- <script src="/static/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="/static/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script> -->
-	
-    <script>
+
+<script>
+function getIDall() {
+    var check_array = [];
+    $(".gradeX input:checked").each(function () {
+
+        var id = $(this).attr("value");
+        // alert(id);
+        check_array.push(id);
+    });
+    // alert(check_array);
+    return check_array.join(",");
+
+}
+$(document).ready(function(){
+    $('.asset_del').click(function(){
+            var row = $(this).closest('tr');
+            if (confirm("确定删除?")) {
+                $.get(
+                        $(this).attr('value'),
+                        {},
+                        function (data) {
+                            row.remove()
+                        }
+                )
+            }
+        });
+
+
+    $('#asset_del').click(function () {
+        var asset_id_all = getIDall();
+        if (asset_id_all == ''){
+            alert("请至少选择一行!");
+            return false;
+        }
+        if (confirm("确定删除?")) {
+            $.ajax({
+                type: "post",
+                data: {asset_id_all: asset_id_all},
+                url: "/device_del",
+                success: function () {
+                    parent.location.reload();
+                }
+            });
+        }
+    });
+});
 //此函数用于checkbox的全选和反选
 var checked=false;
 function check_all(form) {
@@ -137,6 +187,5 @@ function checkAll(id, name){
         }
     }
 }
-
-    </script>
+</script>
 {% endblock add_script %}

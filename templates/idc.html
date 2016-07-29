@@ -75,44 +75,37 @@
 						<thead>
 							<tr>
 								<th>IDC 名称</th>
-								<th>主机</th>
+								<th>主机数</th>
 								<th>联系人</th>
 								<th>手机</th>
 								<th>座机</th>
-								<th>Email</th>	
+								<!-- <th>Email</th>	 -->
 								<th>地址</th>
-								<th>备注</th>
-								<th>创建时间</th>
-								<th>更新时间</th>
+								<!-- <th>备注</th> -->
+								<!-- <th>创建时间</th> -->
+								<!-- <th>更新时间</th> -->
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
 									{% for list in idcs %}
 									
-                                        <tr>	
-										<!-- <form action="/group_edit" method="post">   -->
-											
-                                            <td>{{ list.idcname }}</td>
+                                        <tr>
+                                            <td>{{ list.info.idcname }}</td>
+											<td>{{ list.hostname }}</td>
+											<td>{{ list.info.contantname }}</td>
+											<td>{{ list.info.mobile }}</td>
+											<td>{{ list.info.phone }}</td>
+											<!-- <td>{{ list.info.email }}</td> -->
+											<td>{{ list.info.address }}</td>
+											<!-- <td>{{ list.info.description }}</td> -->
+											<!-- <td>{{ list.info.createtime }}</td> -->
+											<!-- <td>{{ list.info.updatetime }}</td> -->
 											<td>
-																			
-												{{ list.device }}
-											
-											</td>
-											<td>{{ list.contantname }}</td>
-											<td>{{ list.mobile }}</td>
-											<td>{{ list.phone }}</td>
-											<td>{{ list.email }}</td>
-											<td>{{ list.address }}</td>
-											<td>{{ list.description }}</td>
-											<td>{{ list.createtime }}</td>
-											<td>{{ list.updatetime }}</td>
-											<td>
-												<a class="btn btn-outline btn-primary btn-xs" href='/idc_edit/{{list.id}}'>编辑</a>
+												<a class="btn btn-outline btn-primary btn-xs" href='/idc_edit/{{list.info.id}}'>编辑</a>
 												<!-- <a class="btn btn-outline btn-primary btn-xs" href='/group_del/{{list.gname}}' onclick='mksure()'>删除</a> -->
-												<button id='idc_del' type='button' class="btn btn-outline btn-primary btn-xs" value='{{list.id}}' onclick='mksure()' >删除</button>
-											</td>	
-										<!-- </form> -->
+												<button id='idc_del' type='button' class="btn btn-outline btn-primary btn-xs" value='{{list.info.id}}' onclick='mksure()' >删除</button>
+											</td>
 										</tr>  
 									
 									{% endfor %}
