@@ -51,10 +51,10 @@
                     <option value='None'>None</option>
                     <!-- <option>None</option> -->
                 {%for g in idcs%}
-                    {%if g.idcname == devinfo.idc %}
-                    <option selected="selected">{{g.idcname}}</option>
+                    {%if g.info.idcname == devinfo.idc %}
+                    <option selected="selected">{{g.info.idcname}}</option>
                     {%else%}
-                    <option>{{g.idcname}}</option>
+                    <option>{{g.info.idcname}}</option>
                     {%endif%}
                 {%endfor%}
                 </select>
@@ -63,10 +63,7 @@
                 <label>CPU核数：</label> 
                 <input  type="text" class="form-control" name='cpunum' value="{{devinfo.info.cpunum}}">
                 </div>
-                <div class="col-lg-7">
-               <!--  <label>tmp：</label> 
-                <input  type="text" class="form-control" name='cpunum' value="{{devinfo.idc}}">
-                </div> -->
+                
                 <div class="col-lg-7">
                 <label>内存：</label> 
                 <input  type="text" class="form-control" name='mem' value="{{devinfo.info.mem}}">

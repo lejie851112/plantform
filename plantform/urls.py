@@ -53,7 +53,7 @@ urlpatterns = [
     url(r'^device$', so.views.device),
     url(r'^device_add$', so.views.device_add),
     url(r'^device_edit/(.+)/$', so.views.device_edit),
-    url(r'^device_del$', so.views.device_del),
+    url(r'^device_del', so.views.device_del),
     # url(r'^detail_update$', so.views.device_update),
     url(r'^device_group$', so.views.device_group),
     url(r'^idc$', so.views.idc),
