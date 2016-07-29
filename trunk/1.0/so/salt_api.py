@@ -246,7 +246,7 @@ def salt_hosts(request):
 		gname_tmp = []
 		if host.relation_set.all():
 			for h in host.relation_set.all():
-				gname_tmp = h.groupname
+				gname_tmp = h.groupname.name
 				gname.append(gname_tmp)
 		data_tmp = {'name':host.name,'ip':host.ip,'group':gname}
 		data.append(data_tmp)

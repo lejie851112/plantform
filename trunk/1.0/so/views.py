@@ -664,6 +664,10 @@ def device_edit(request,devid):
 		device_api.device_update(request,devid)
 		return HttpResponseRedirect('/device')	
 	else:
-		data = {'devinfo':device_api.dinfo(devid),'groups':device_api.showgrp(),'idcs':device_api.showidc()}
+		data = {'devinfo':device_api.device_edit(devid),'groups':device_api.showgrp(),'idcs':device_api.showidc()}
 		html = 'device_edit.html'
 		return session_check(request,html,data)
+def device_del(request):
+	device_api.device_del(request)
+	# return HttpResponseRedirect('/device')	
+	return HttpResponse(u'删除成功')

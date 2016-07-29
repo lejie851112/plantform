@@ -13,23 +13,23 @@
                 <form  action="" method="post">
                 <div class="col-lg-7">
                 <label>主机名：</label> 
-                <input type="text" class="form-control" name='name' value="{{devinfo.hostname}}">
+                <input type="text" class="form-control" name='name' value="{{devinfo.info.hostname}}">
                 </div>
                 <div class="col-lg-7">
                 <label>IP：</label> 
-                <input  type="text" class="form-control" name='ip' value="{{devinfo.ip}}">
+                <input  type="text" class="form-control" name='ip' value="{{devinfo.info.ip}}">
                 </div>
                 <div class="col-lg-7">
                 <label>ssh端口：</label> 
-                <input type="text" class="form-control" name='sshport' value="{{devinfo.sshport}}">
+                <input type="text" class="form-control" name='sshport' value="{{devinfo.info.sshport}}">
                 </div>
                 <div class="col-lg-7">
                 <label>ssh用户：</label> 
-                <input   type="text" class="form-control" name='sshuser' value="{{devinfo.sshuser}}">
+                <input   type="text" class="form-control" name='sshuser' value="{{devinfo.info.sshuser}}">
                 </div>
                 <div class="col-lg-7">
                 <label>ssh密码：</label> 
-                <input  type="text" class="form-control" name='sshpass' value="{{devinfo.sshpass}}">
+                <input  type="text" class="form-control" name='sshpass' value="{{devinfo.info.sshpass}}">
                 </div>
                 <div class="col-lg-7">
                 <label>资产组：</label> 
@@ -37,7 +37,7 @@
                     <option value='None'>None</option>
                     <!-- <option>None</option> -->
                 {%for g in groups%}
-                    {% if g.name == devinfo.gname %}
+                    {% if g.name == devinfo.group %}
                     <option selected="selected">{{g.name}}</option>
                     {%else%}
                     <option>{{g.name}}</option>
@@ -51,58 +51,67 @@
                     <option value='None'>None</option>
                     <!-- <option>None</option> -->
                 {%for g in idcs%}
+                    {%if g.idcname == devinfo.idc %}
+                    <option selected="selected">{{g.idcname}}</option>
+                    {%else%}
                     <option>{{g.idcname}}</option>
+                    {%endif%}
                 {%endfor%}
                 </select>
                 </div>
                 <div class="col-lg-7">
                 <label>CPU核数：</label> 
-                <input  type="text" class="form-control" name='cpunum' value="{{devinfo.cpunum}}">
+                <input  type="text" class="form-control" name='cpunum' value="{{devinfo.info.cpunum}}">
                 </div>
                 <div class="col-lg-7">
+               <!--  <label>tmp：</label> 
+                <input  type="text" class="form-control" name='cpunum' value="{{devinfo.idc}}">
+                </div> -->
+                <div class="col-lg-7">
                 <label>内存：</label> 
-                <input  type="text" class="form-control" name='mem' value="{{devinfo.mem}}">
+                <input  type="text" class="form-control" name='mem' value="{{devinfo.info.mem}}">
                 </div>
                 <div class="col-lg-7">
                 <label>操作系统：</label> 
-                <input  type="text" class="form-control" name='os' value="{{devinfo.os}}">
+                <input  type="text" class="form-control" name='os' value="{{devinfo.info.os}}">
                 </div>
                 <div class="col-lg-7">
                 <label>主机类型：</label> 
-                <input  type="text" class="form-control" name='hyper' value="{{devinfo.hyper}}">
+                <input  type="text" class="form-control" name='hyper' value="{{devinfo.info.hyper}}">
                 </div>
                 <div class="col-lg-7">
                 <label>硬盘：</label> 
-                <input  type="text" class="form-control" name='disk' value="{{devinfo.disk}}">
+                <input  type="text" class="form-control" name='disk' value="{{devinfo.info.disk}}">
                 </div>
                 <div class="col-lg-7">
                 <label>分区：</label> 
-                <input  type="text" class="form-control" name='partion' value="{{devinfo.partion}}">
+                <input  type="text" class="form-control" name='partion' value="{{devinfo.info.partion}}">
                 </div>
                 <div class="col-lg-7">
-                <label>远程卡：</label> 
-                <input  type="text" class="form-control" name='remotecard' value="{{devinfo.remotecard}}">
+                <label>远程卡类型：</label> 
+                <input  type="text" class="form-control" name='remotecard' value="{{devinfo.info.remotecard}}">
                 </div>
                 <div class="col-lg-7">
                 <label>远程卡IP：</label> 
-                <input  type="text" class="form-control" name='remoteaddr' value="{{devinfo.remoteaddr}}">
+                <input  type="text" class="form-control" name='remoteaddr' value="{{devinfo.info.remoteaddr}}">
                 </div>
                 <div class="col-lg-7">
                 <label>远程卡用户：</label> 
-                <input  type="text" class="form-control" name='remoteuser' value="{{devinfo.remoteuser}}">
+                <input  type="text" class="form-control" name='remoteuser' value="{{devinfo.info.remoteuser}}">
                 </div>
                 <div class="col-lg-7">
                 <label>远程卡密码：</label> 
-                <input  type="text" class="form-control" name='remotepass' value="{{devinfo.remotepass}}">
+                <input  type="text" class="form-control" name='remotepass' value="{{devinfo.info.remotepass}}">
                 </div>
                 
                 <div class="col-lg-7">
                 <label>备注：</label> 
-                <input  type="text" class="form-control" name='description' value="{{devinfo.description}}">
+                <input  type="text" class="form-control" name='description' value="{{devinfo.info.description}}">
                 </div>
                 <div class="col-lg-12 panel-body">
                 <!-- <button class="btn btn-primary" type="sumbit">保存</button> -->
                 <input type="submit" class="btn btn-primary" value='保存'/>
+                <a href='' class="btn btn-primary">更新</a>
                 <a href='/device' class="btn btn-primary">取消</a>
                 </div>
               </form>

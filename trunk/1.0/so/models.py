@@ -97,6 +97,9 @@ class devices(models.Model):
     #
     racknum = models.CharField(max_length=32)
     linenum = models.CharField(max_length=32)
+    #
+    # didc = models.ForeignKey(idc)
+    # dgroup = models.ManyToManyField(devgroup)
 
 #资产组
 class devgroup(models.Model):
