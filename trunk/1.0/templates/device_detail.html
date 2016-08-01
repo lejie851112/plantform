@@ -35,7 +35,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-navy">远控IP</td>
+                            <td class="text-navy">IPMI IP</td>
                             <td>{{ asset.remote_ip|default_if_none:"" }}</td>
                         </tr>
                         <tr>
@@ -133,10 +133,6 @@
                                         <td>{{ asset.position|default_if_none:"" }}</td>
                         </tr>
                         <tr>
-                                        <td class="text-navy">激活</td>
-                                        <td>{{ asset.is_active }}</td>
-                        </tr>
-                        <tr>
                                         <td class="text-navy">添加日期</td>
                                         <td>{{ asset.date_added|date:"Y-m-d H:i:s" }}</td>
                         </tr>
@@ -172,19 +168,19 @@
                             <td>{{ asset.name }}</td>
                         </tr>
                         <tr>
-                            <td class="text-navy">描述</td>
+                            <td class="text-navy">联系人</td>
                             <td>{{ asset.name }}</td>
                         </tr>
                         <tr>
-                            <td class="text-navy">名称</td>
+                            <td class="text-navy">手机</td>
                             <td>{{ asset.name }}</td>
                         </tr>
                         <tr>
-                            <td class="text-navy">描述</td>
+                            <td class="text-navy">固话</td>
                             <td>{{ asset.name }}</td>
                         </tr>
                         <tr>
-                            <td class="text-navy">名称</td>
+                            <td class="text-navy">地址</td>
                             <td>{{ asset.name }}</td>
                         </tr>
                         <tr>
