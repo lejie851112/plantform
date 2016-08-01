@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% block page-wrapper %}
+
+<div id="page-wrapper">
+    <div class="row">
+        <h2>详细信息</h2>
+        <div class="col-lg-4">
+            <div class="ibox-content">
+                <div class="ibox-content ibox-heading">
+                    <h3>主机</h3>
+                <!-- <small><i class="fa fa-map-marker"></i> 此主机信息.</small> -->
+                </div>
+                <div class="text-left">
+                    <table class="table">
+                        <tr>
+                            <td class="text-navy">主机名</td>
+                            <td>{{ asset.hostname|default_if_none:""  }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">IP</td>
+                            <td>{{ asset.ip|default_if_none:""  }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">其他IP</td>
+                            <td>
+                                <table class="table">
+                                {% if asset.other_ip %}
+                                    {% for ip in asset.other_ip %}
+                                    <tr>
+                                        <td>{{ ip }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">远控IP</td>
+                            <td>{{ asset.remote_ip|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">端口</td>
+                            <td>{{ asset.port|default_if_none:"" }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-navy">主机组</td>
+                            <td>
+                                <table class="table">
+                                {% for asset_group in asset.group.all %}
+                                    <tr>
+                                        <td>{{ asset_group.name|default_if_none:"" }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">使用默认管理账号</td>
+                            <td>{{ asset.use_default_auth }}</td>
+                            <td>{{ asset.use_default_auth }} 
+                            {% if not asset.use_default_auth %} 
+                                <span class="text-info">{{ asset.username }}</span> 
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">机房</td>
+                            <td>{{ asset.idc.name|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">硬件厂商型号</td>
+                            <td>{{ asset.brand|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">CPU</td>
+                            <td>{{ asset.cpu|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">内存</td>
+                            <td>{{ asset.memory|default_if_none:"" }}{% if asset.memory %}G{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">硬盘</td>
+                            <td>
+                                <table class="table">
+                                {% if asset.disk %}
+                                    {% for disk, value in asset.disk %}
+                                <tr>
+                                    <td>
+                                    <span class="text-navy">{{ disk|default_if_none:"" }}</span> &nbsp&nbsp&nbsp {{ value|default_if_none:"" }}
+                                    </td>
+                                </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">资产编号</td>
+                                        <td>{{ asset.number|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">SN</td>
+                                        <td>{{ asset.sn|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">主机类型</td>
+                                        <td>{{ asset.get_asset_type_display|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">系统版本</td>
+                                        <td>{{ asset.system_type|default_if_none:"" }} {{ asset.system_version|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">系统平台</td>
+                                        <td>{{ asset.system_arch|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">运行环境</td>
+                                        <td>{{ asset.get_env_display|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">机器状态</td>
+                                        <td>{{ asset.get_status_display|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">机柜号</td>
+                                        <td>{{ asset.cabinet|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">机柜位置</td>
+                                        <td>{{ asset.position|default_if_none:"" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">激活</td>
+                                        <td>{{ asset.is_active }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">添加日期</td>
+                                        <td>{{ asset.date_added|date:"Y-m-d H:i:s" }}</td>
+                        </tr>
+                        <tr>
+                                        <td class="text-navy">备注</td>
+                                        <td>{{ asset.comment|default_if_none:"" }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>    
+        <div class="col-lg-4">
+            <h3 class="ibox-content ibox-heading">组</h3>
+            <div class="text-left">
+                    <table class="table">
+                        <tr>
+                            <td class="text-navy">名称</td>
+                            <td>{{ asset.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">描述</td>
+                            <td>{{ asset.name }}</td>
+                        </tr>
+                    <table>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h3 class="ibox-content ibox-heading">IDC</h3>
+            <div class="text-left">
+                    <table class="table">
+                        <tr>
+                            <td class="text-navy">名称</td>
+                            <td>{{ asset.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">描述</td>
+                            <td>{{ asset.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">名称</td>
+                            <td>{{ asset.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">描述</td>
+                            <td>{{ asset.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">名称</td>
+                            <td>{{ asset.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">描述</td>
+                            <td>{{ asset.name }}</td>
+                        </tr>
+                    <table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page-wrapper %}
+{% block add_script %}
+
+    <script type="text/javascript">
+  function checkform() {  
+    // document.getElementById("idcname").removeAttribute("disabled");
+    $('#editidc').submit(); 
+    };
+    </script>
+  
+{% endblock add_script %}

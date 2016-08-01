@@ -664,10 +664,24 @@ def device_edit(request,devid):
 		device_api.device_update(request,devid)
 		return HttpResponseRedirect('/device')	
 	else:
-		data = {'devinfo':device_api.device_edit(devid),'groups':device_api.showgrp(),'idcs':device_api.showidc()}
-		html = 'device_edit.html'
-		return session_check(request,html,data)
+		devinfo = device_api.device_edit(devid)
+		groups = device_api.showgrp()
+		idcs = device_api.showidc()
+		# html = 'device_edit.html'
+		return session_check(request,'device_edit.html',locals())
 def device_del(request):
 	device_api.device_del(request)
 	# return HttpResponseRedirect('/device')	
-	return HttpResponse(u'删除成功')
+	return HttpResponse(u'成功')
+def device_detail(request,devid):
+	if request.method == 'POST':
+		device_api.device_detail(request,devid)
+		return HttpResponseRedirect('/device')	
+	else:
+		devinfo = device_api.showdev()
+		groups = device_api.showgrp()
+		idcs = device_api.showidc()
+		# history = 
+
+		# html = 'device_edit.html'
+		return session_check(request,'device_detail.html',locals())
