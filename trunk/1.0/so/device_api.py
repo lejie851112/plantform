@@ -166,7 +166,7 @@ def device_update(request,devid):
 
 def device_del(request):
     devid = request.GET.get('id', '')
-    
+
     if devid:
         g = devtogroup.objects.filter(dname__id=devid)
         i = devtoidc.objects.filter(dname__id=devid)
@@ -186,4 +186,5 @@ def device_del(request):
             i.delete()
             d.delete()
 
-
+# def device_detail():
+    

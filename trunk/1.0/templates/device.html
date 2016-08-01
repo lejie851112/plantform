@@ -26,9 +26,10 @@
                                     <button id='search_btn' href="" type="button" class="btn btn-sm btn-primary search-btn"  onclick="change_info()">
                                         - 搜索 -
                                     </button>
-                                  <!--   <button type="button" href="" name="export" class="btn btn-sm btn-success search-btn-excel" onclick="return false">
+                                    <button type="button" href="" name="export" class="btn btn-sm btn-success search-btn-excel" onclick="return false">
                                         - 导出 -
-                                    </button> -->
+                                    </button>
+                                    <input type="button" id="asset_update_all" class="btn btn-primary btn-sm"  name="update_button" value="更新全部"/>
                                 </div>
                             </div>
                 </div>
@@ -41,7 +42,6 @@
                                     <input id="checkall" type="checkbox" class="i-checks" name="checkall" value="checkall" data-editable='false' onclick="check_all('dev_form')">
                                 </th>
 								<th>主机名</th>
-								<!-- <th>IP</th> -->
 								<th>CPU核数</th>
 								<th>内存</th>
 								<th>IP地址</th>
@@ -61,7 +61,7 @@
                                       	<td class="text-center" name="id" value="{{dev.info.id}}" data-editable='false'>
                                         <input name="id" value="{{dev.info.id}}" type="checkbox" class="i-checks">
                                     	</td>
-                                      	<td><a href="/devdetail/{{dev.info.id}}/">{{dev.info.hostname}}</a></td>
+                                      	<td><a href="/device_detail/{{dev.info.id}}/">{{dev.info.hostname}}</a></td>
                                       	<td>{{dev.info.cpunum}}</td>
                                       	<td>{{dev.info.mem}}</td>
                                       	<td>{{dev.info.ip}}</td>
@@ -95,7 +95,7 @@
                                 <input type="button" id="asset_del" class="btn btn-danger btn-sm"  name="del_button" value="删除"/>
                                 <a value="" type="button" class="btn btn-sm btn-warning iframe">修改</a>
                                 <input type="button" id="asset_update" class="btn btn-info btn-sm"  name="update_button" value="更新"/>
-                               <!-- <input type="button" id="asset_update_all" class="btn btn-primary btn-sm"  name="update_button" value="更新全部"/> -->
+                               
                                 <input type="button" id="exec_cmd" class="btn btn-sm btn-primary"  name="exec_cmd" value="执行命令"/>
                 </div>
 				</div>
@@ -154,6 +154,28 @@ $(document).ready(function(){
                 }
             });
         }
+    });
+    $(".iframe").on('click', function(){
+        var asset_id_all = getIDall();
+        if (asset_id_all == ''){
+            alert("请至少选择一行!");
+            return false;
+        }
+        var url= $(this).attr("value") + '?asset_id_all=' + asset_id_all;
+        parent.layer.open({
+            type: 2,
+            title: 'JumpServer - 批量修改主机',
+            maxmin: true,
+            shift: 'top',
+            border: [2, 0.3, '#1AB394'],
+            shade: [0.5, '#000000'],
+            area: ['800px', '600px'],
+            shadeClose: true,
+            content: url,
+            cancel: function(){
+                location.replace(location.href);
+            }
+        });
     });
 });
 //此函数用于checkbox的全选和反选
