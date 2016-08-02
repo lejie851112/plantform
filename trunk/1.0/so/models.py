@@ -79,9 +79,9 @@ class devices(models.Model):
     disk = models.CharField(max_length=32)
     partion = models.CharField(max_length=128)
     mem = models.CharField(max_length=32)
-    cputype = models.CharField(max_length=32)
+    cputype = models.CharField(max_length=128)
     cpunum = models.CharField(max_length=32)
-    os = models.CharField(max_length=32)
+    os = models.CharField(max_length=128)
     #
     description = models.CharField(max_length=128)
     createtime = models.DateTimeField()

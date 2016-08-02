@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{% block add_css %}
+    <!-- Morris Charts CSS -->
+    <!-- <link href="/static/bower_components/morrisjs/morris.css" rel="stylesheet"> -->
+{% endblock add_css %}
 {% block page-wrapper %}
 
 <div id="page-wrapper">
@@ -14,17 +18,17 @@
                     <table class="table">
                         <tr>
                             <td class="text-navy">主机名</td>
-                            <td>{{ asset.hostname|default_if_none:""  }}</td>
+                            <td>{{ devs.info.hostname|default:""  }}</td>
                         </tr>
                         <tr>
                             <td class="text-navy">IP</td>
-                            <td>{{ asset.ip|default_if_none:""  }}</td>
+                            <td>{{ devs.info.ip|default:""  }}</td>
                         </tr>
                         <tr>
                             <td class="text-navy">其他IP</td>
                             <td>
                                 <table class="table">
-                                {% if asset.other_ip %}
+                                {% if devs.info.other_ip %}
                                     {% for ip in asset.other_ip %}
                                     <tr>
                                         <td>{{ ip }}</td>
@@ -36,26 +40,26 @@
                         </tr>
                         <tr>
                             <td class="text-navy">IPMI IP</td>
-                            <td>{{ asset.remote_ip|default_if_none:"" }}</td>
+                            <td>{{ devs.info.remoteaddr|default:"" }}</td>
                         </tr>
                         <tr>
-                            <td class="text-navy">端口</td>
-                            <td>{{ asset.port|default_if_none:"" }}</td>
+                            <td class="text-navy">ssh 用户</td>
+                            <td>{{ devs.info.sshuser|default:"" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">ssh 密码</td>
+                            <td>{{ devs.info.sshpass|default:"" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-navy">ssh端口</td>
+                            <td>{{ devs.info.sshport|default:"" }}</td>
                         </tr>
 
                         <tr>
-                            <td class="text-navy">主机组</td>
-                            <td>
-                                <table class="table">
-                                {% for asset_group in asset.group.all %}
-                                    <tr>
-                                        <td>{{ asset_group.name|default_if_none:"" }}</td>
-                                    </tr>
-                                {% endfor %}
-                                </table>
-                            </td>
+                            <td class="text-navy">资产组</td>
+                            <td>{{ devs.group|default:"" }}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td class="text-navy">使用默认管理账号</td>
                             <td>{{ asset.use_default_auth }}</td>
                             <td>{{ asset.use_default_auth }} 
@@ -63,143 +67,407 @@
                                 <span class="text-info">{{ asset.username }}</span> 
                             {% endif %}
                             </td>
+                        </tr> -->
+                        <tr>
+                            <td class="text-navy">IDC</td>
+                            <td>{{ devs.idcinfo.idcname|default:"" }}</td>
                         </tr>
                         <tr>
-                            <td class="text-navy">机房</td>
-                            <td>{{ asset.idc.name|default_if_none:"" }}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-navy">硬件厂商型号</td>
-                            <td>{{ asset.brand|default_if_none:"" }}</td>
+                            <td class="text-navy">硬件厂商/型号</td>
+                            <td>{{ devs.info|default:"" }}</td>
                         </tr>
                         <tr>
                             <td class="text-navy">CPU</td>
-                            <td>{{ asset.cpu|default_if_none:"" }}</td>
+                            <td>{{ devs.info.cputype|default:"unknown" }} {{ devs.info.cpunum|default:"unknown" }} 核</td>
                         </tr>
                         <tr>
                             <td class="text-navy">内存</td>
-                            <td>{{ asset.memory|default_if_none:"" }}{% if asset.memory %}G{% endif %}</td>
+                            <td>{{ devs.info.mem|default:"0" }}{% if devs.info.memory %}G{% endif %}</td>
                         </tr>
                         <tr>
                             <td class="text-navy">硬盘</td>
-                            <td>
-                                <table class="table">
-                                {% if asset.disk %}
-                                    {% for disk, value in asset.disk %}
-                                <tr>
-                                    <td>
-                                    <span class="text-navy">{{ disk|default_if_none:"" }}</span> &nbsp&nbsp&nbsp {{ value|default_if_none:"" }}
-                                    </td>
-                                </tr>
-                                    {% endfor %}
-                                {% endif %}
-                                </table>
+                            <td>{{devs.info.disk }}
                             </td>
                         </tr>
                         <tr>
                                         <td class="text-navy">资产编号</td>
-                                        <td>{{ asset.number|default_if_none:"" }}</td>
+                                        <td>{{ devs.info.compsn|default:"" }}</td>
                         </tr>
                         <tr>
                                         <td class="text-navy">SN</td>
-                                        <td>{{ asset.sn|default_if_none:"" }}</td>
+                                        <td>{{ devs.info.devsn|default:"" }}</td>
                         </tr>
                         <tr>
-                                        <td class="text-navy">主机类型</td>
-                                        <td>{{ asset.get_asset_type_display|default_if_none:"" }}</td>
+                                        <td class="text-navy">虚拟化</td>
+                                        <td>{{ devs.info.hyper|default:"" }}</td>
                         </tr>
                         <tr>
                                         <td class="text-navy">系统版本</td>
-                                        <td>{{ asset.system_type|default_if_none:"" }} {{ asset.system_version|default_if_none:"" }}</td>
+                                        <td>{{ devs.info.os|default:"" }}</td>
                         </tr>
-                        <tr>
+                       <!--  <tr>
                                         <td class="text-navy">系统平台</td>
-                                        <td>{{ asset.system_arch|default_if_none:"" }}</td>
-                        </tr>
-                        <tr>
+                                        <td>{{ asset.system_arch|default:"" }}</td>
+                        </tr> -->
+                        <!-- <tr>
                                         <td class="text-navy">运行环境</td>
-                                        <td>{{ asset.get_env_display|default_if_none:"" }}</td>
-                        </tr>
+                                        <td>{{ asset.get_env_display|default:"" }}</td>
+                        </tr> -->
                         <tr>
                                         <td class="text-navy">机器状态</td>
-                                        <td>{{ asset.get_status_display|default_if_none:"" }}</td>
+                                        <td>{{ devs.info.status|default:"" }}</td>
                         </tr>
                         <tr>
                                         <td class="text-navy">机柜号</td>
-                                        <td>{{ asset.cabinet|default_if_none:"" }}</td>
+                                        <td>{{ devs.info.racknum|default:"" }}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                                         <td class="text-navy">机柜位置</td>
-                                        <td>{{ asset.position|default_if_none:"" }}</td>
-                        </tr>
+                                        <td>{{ asset.position|default:"" }}</td>
+                        </tr> -->
                         <tr>
                                         <td class="text-navy">添加日期</td>
-                                        <td>{{ asset.date_added|date:"Y-m-d H:i:s" }}</td>
+                                        <td>{{ devs.info.createtime|date:"Y-m-d H:i:s" }}</td>
                         </tr>
                         <tr>
                                         <td class="text-navy">备注</td>
-                                        <td>{{ asset.comment|default_if_none:"" }}</td>
+                                        <td>{{ devs.info.description|default:"" }}</td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>    
         <div class="col-lg-4">
-            <h3 class="ibox-content ibox-heading">组</h3>
-            <div class="text-left">
+            <div class="ibox-content">
+                <h3 class="ibox-content ibox-heading">最近10个历史命令</h3>
+                <div class="text-left">
                     <table class="table">
+                    <thead>
+                        <th class="text-navy">名称</th>
+                        <th class="text-navy">执行时间</th>
+                    </thead>
                         <tr>
-                            <td class="text-navy">名称</td>
-                            <td>{{ asset.name }}</td>
-                        </tr>
+                            <td class="text-navy">ls</td>
+                            <td class="text-navy">2010-11-11</td>
+                        </tr>   
                         <tr>
-                            <td class="text-navy">描述</td>
-                            <td>{{ asset.name }}</td>
-                        </tr>
-                    <table>
+                            <td class="text-navy">ls</td>
+                            <td class="text-navy">2010-11-11</td>
+                        </tr> 
+                        <tr>
+                            <td class="text-navy">ls</td>
+                            <td class="text-navy">2010-11-11</td>
+                        </tr> 
+                        <tr>
+                            <td class="text-navy">ls</td>
+                            <td class="text-navy">2010-11-11</td>
+                        </tr> 
+                        <tr>
+                            <td class="text-navy">ls</td>
+                            <td class="text-navy">2010-11-11</td>
+                        </tr> 
+                        <tr>
+                            <td class="text-navy">ls</td>
+                            <td class="text-navy">2010-11-11</td>
+                        </tr> 
+
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <h3 class="ibox-content ibox-heading">IDC</h3>
-            <div class="text-left">
+            <div class="ibox-content">
+                <h3 class="ibox-content ibox-heading">所在IDC</h3>
+                <div class="text-left">
                     <table class="table">
                         <tr>
                             <td class="text-navy">名称</td>
-                            <td>{{ asset.name }}</td>
+                            <td>{{ devs.idcinfo.idcname }}</td>
                         </tr>
                         <tr>
                             <td class="text-navy">联系人</td>
-                            <td>{{ asset.name }}</td>
+                            <td>{{ devs.idcinfo.contantname  }}</td>
                         </tr>
                         <tr>
                             <td class="text-navy">手机</td>
-                            <td>{{ asset.name }}</td>
+                            <td>{{devs.idcinfo.mobile }}</td>
                         </tr>
                         <tr>
                             <td class="text-navy">固话</td>
-                            <td>{{ asset.name }}</td>
+                            <td>{{ devs.idcinfo.phone  }}</td>
                         </tr>
                         <tr>
                             <td class="text-navy">地址</td>
-                            <td>{{ asset.name }}</td>
+                            <td>{{ devs.idcinfo.address }}</td>
                         </tr>
                         <tr>
                             <td class="text-navy">描述</td>
-                            <td>{{ asset.name }}</td>
+                            <td>{{ devs.idcinfo.description }}</td>
                         </tr>
-                    <table>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="ibox-content">
+                <h3 class="ibox-content ibox-heading">历史命令统计</h3>
+                <div class="col-lg-8" id="top10" style="margin-left: -15px;height: 346px;padding: 15px 0 15px 0;">
+                    
+                </div>
+                 
             </div>
         </div>
     </div>
 </div>
 {% endblock page-wrapper %}
 {% block add_script %}
+<script src="/static/js/echarts/echarts.js"></script>
 
-    <script type="text/javascript">
-  function checkform() {  
-    // document.getElementById("idcname").removeAttribute("disabled");
-    $('#editidc').submit(); 
-    };
+<script>
+$(document).ready(function(){
+    $('#show').click(function(){
+        $('#show').css('display', 'none');
+        $('#more').css('display', 'block');
+    })
+});
+
+    require.config({
+        paths: {
+            'echarts': '/static/js/echarts/chart',
+            'echarts/chart/line': '/static/js/echarts/chart/line',
+            'echarts/chart/pie': '/static/js/echarts/chart/pie'
+        }
+    });
+    require(
+        [
+            'echarts',
+            'echarts/chart/line'
+        ],
+        function (ec) {
+            var top10Chart = ec.init(document.getElementById('top10'));
+            var option = {
+                title : {
+                    text: '月数据总览',
+                    subtext: '一个月内历史汇总',
+                    x: 'center'
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                backgroundColor: '#fff',
+                legend: {
+                    data:['登陆次数', '活跃用户','活跃资产'],
+                    y: 'bottom'
+                },
+                toolbox: {
+                    show : false,
+                    feature : {
+                       mark : {show: true},
+                       dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : {{ date_month | safe}}
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'登陆次数',
+                        type:'line',
+                        smooth:true,
+                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                        data: {{ active_login_per_month | safe }}
+                    },
+                    {
+                        name:'活跃用户',
+                        type:'line',
+                        smooth:true,
+                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                        data: {{ active_user_per_month | safe }}
+                    },
+                    {
+                        name:'活跃资产',
+                        type:'line',
+                        smooth:true,
+                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                        data: {{ active_asset_per_month | safe }}
+                    }
+
+                ]
+            };
+
+            top10Chart.setOption(option);
+        }
+    );
+
+    require(
+        [
+            'echarts',
+            'echarts/chart/pie'
+        ],
+        function (ec) {
+            var auChart = ec.init(document.getElementById('activeUser'));
+            var option = {
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{b} <br> {c} ({d}%)"
+                },
+                legend: {
+                    show: false,
+                    orient : 'vertical',
+                    x : 'left',
+                    data:['月活跃用户','禁用用户','月未登陆用户']
+                },
+                toolbox: {
+                    show : false,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'center',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'访问来源',
+                        type:'pie',
+                        radius : ['50%', '70%'],
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : false
+                                },
+                                labelLine : {
+                                    show : false
+                                }
+                            },
+                            emphasis : {
+                                label : {
+                                    show : true,
+                                    position : 'center',
+                                    textStyle : {
+                                        fontSize : '5',
+                                        fontWeight : 'bold'
+                                    }
+                                }
+                            }
+                        },
+                        data:[
+                            {value:{{ active_user_month }}, name:'月活跃用户'},
+                            {value:{{ disabled_user_count }}, name:'禁用用户'},
+                            {value:{{ inactive_user_month }}, name:'月未登陆用户'}
+
+                        ]
+                    }
+                ]
+            };
+
+            auChart.setOption(option);
+        }
+    );
+
+    require(
+        [
+            'echarts',
+            'echarts/chart/pie'
+        ],
+        function (ec) {
+            var aaChart = ec.init(document.getElementById('activeAsset'));
+            var option = {
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{b} <br> {c} ({d}%)"
+                },
+                legend: {
+                    show: false,
+                    orient : 'vertical',
+                    x : 'left',
+                    data:['月被登陆主机','禁用主机','月未登陆主机']
+                },
+                toolbox: {
+                    show : false,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'center',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'访问来源',
+                        type:'pie',
+                        radius : ['50%', '70%'],
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : false
+                                },
+                                labelLine : {
+                                    show : false
+                                }
+                            },
+                            emphasis : {
+                                label : {
+                                    show : true,
+                                    position : 'center',
+                                    textStyle : {
+                                        fontSize : '5',
+                                        fontWeight : 'bold'
+                                    }
+                                }
+                            }
+                        },
+                        data:[
+                            {value:{{ active_asset_month }}, name:'月被登陆主机'},
+                            {value:{{ disabled_asset_count }}, name:'禁用主机'},
+                            {value:{{ inactive_asset_month }}, name:'月未登陆主机'}
+
+                        ]
+                    }
+                ]
+            };
+
+            aaChart.setOption(option);
+        }
+    );
+
     </script>
   
 {% endblock add_script %}

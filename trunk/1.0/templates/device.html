@@ -29,7 +29,7 @@
                                     <button type="button" href="" name="export" class="btn btn-sm btn-success search-btn-excel" onclick="return false">
                                         - 导出 -
                                     </button>
-                                    <input type="button" id="asset_update_all" class="btn btn-primary btn-sm"  name="update_button" value="更新全部"/>
+                                    <input type="button" class="btn btn-primary btn-sm"  name="update_button" value="更新全部" onclick="update_all()"/>
                                 </div>
                             </div>
                 </div>
@@ -42,14 +42,15 @@
                                     <input id="checkall" type="checkbox" class="i-checks" name="checkall" value="checkall" data-editable='false' onclick="check_all('dev_form')">
                                 </th>
 								<th>主机名</th>
-								<th>CPU核数</th>
+								<th>CPU</th>
 								<th>内存</th>
 								<th>IP地址</th>
 								<th>操作系统</th>
-								<th>主机类型</th>
+								<th>虚拟化</th>
 								<th>硬盘</th> 
+                                <th>资产组</th>
 								<th>IDC</th>
-								<th>资产组</th>
+                                <th>更新时间</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -58,12 +59,12 @@
 								
 							{% for dev in devs %}  
 								<tr class="gradeX">                                               
-                                      	<td class="text-center" name="id" value="{{dev.info.id}}" data-editable='false'>
-                                        <input name="id" value="{{dev.info.id}}" type="checkbox" class="i-checks">
+                                      	<td class="text-center" value="{{dev.info.id}}" data-editable='false'>
+                                        <input value="{{dev.info.id}}" type="checkbox" class="i-checks">
                                     	</td>
                                       	<td><a href="/device_detail/{{dev.info.id}}/">{{dev.info.hostname}}</a></td>
-                                      	<td>{{dev.info.cpunum}}</td>
-                                      	<td>{{dev.info.mem}}</td>
+                                      	<td>{{dev.info.cputype}} {{dev.info.cpunum}}核</td>
+                                      	<td>{{dev.info.mem}}M</td>
                                       	<td>{{dev.info.ip}}</td>
                                       	<td>{{dev.info.os}}</td>
                                       	<td>{{dev.info.hyper}}</td>
@@ -78,7 +79,7 @@
                                         {{i}}</br>
                                         {%endfor%}
                                         </td>
-									
+									    <td>{{dev.info.updatetime|date:"m/d H:i"}}</td>
                                         <td class="text-center" data-editable='false'>
                                         <a href="/device_edit/{{dev.info.id}}/" class="btn btn-xs btn-info">编辑</a>
                                         <a href="" class="btn btn-xs btn-warning">连接</a>
@@ -93,7 +94,7 @@
 				<div class="row">
                 <div class="col-lg-6" style="padding-left: 0">
                                 <input type="button" id="asset_del" class="btn btn-danger btn-sm"  name="del_button" value="删除"/>
-                                <a value="" type="button" class="btn btn-sm btn-warning iframe">修改</a>
+                                <!-- <a value="" type="button" class="btn btn-sm btn-warning iframe">修改</a> -->
                                 <input type="button" id="asset_update" class="btn btn-info btn-sm"  name="update_button" value="更新"/>
                                
                                 <input type="button" id="exec_cmd" class="btn btn-sm btn-primary"  name="exec_cmd" value="执行命令"/>
@@ -114,6 +115,18 @@
 function getIDall() {
     var check_array = [];
     $(".gradeX input:checked").each(function () {
+
+        var id = $(this).attr("value");
+        // alert(id);
+        check_array.push(id);
+    });
+    // alert(check_array);
+    return check_array.join(",");
+
+}
+function getall() {
+    var check_array = [];
+    $(".gradeX .i-checks").each(function () {
 
         var id = $(this).attr("value");
         // alert(id);
@@ -150,6 +163,24 @@ $(document).ready(function(){
                 data: {asset_id_all: asset_id_all},
                 url: "/device_del",
                 success: function () {
+                    parent.location.reload();
+                }
+            });
+        }
+    });
+        $('#asset_update').click(function () {
+        var asset_id_all = getIDall();
+        if (asset_id_all == ''){
+            alert("请至少选择一行!");
+            return false;
+        }
+        if (confirm("确定更新?")) {
+            $.ajax({
+                type: "post",
+                data: {asset_id_all: asset_id_all},
+                url: "/info_update",
+                success: function () {
+                    // alert("更新完成!");
                     parent.location.reload();
                 }
             });
@@ -208,6 +239,25 @@ function checkAll(id, name){
          checklist[j].checked = 0;
         }
     }
+}
+function update_all(){
+        var asset_id_all = getall();
+        if (asset_id_all == ''){
+            alert("请添加资产!");
+            return false;
+        }
+        if (confirm("确定全部更新?")) {
+            $.ajax({
+                type: "post",
+                data: {asset_id_all: asset_id_all},
+                url: "/info_update",
+                success: function () {
+                    // alert("更新完成!");
+                    parent.location.reload();
+                }
+            });
+        }
+
 }
 </script>
 {% endblock add_script %}

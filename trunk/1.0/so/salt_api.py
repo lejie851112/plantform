@@ -503,12 +503,12 @@ def progress(taskid,st):
 	if one.cuuid:
 		job_id = str(one.cuuid)
 		job_result = AsyncResult(job_id)
-		print 'job_resultjob_resultjob_resultjob_result'
-		print job_result
+		# print 'job_resultjob_resultjob_resultjob_result'
+		# print job_result
 		job_data = job_result.state
-		print "####api progress ####"
+		# print "####api progress ####"
 		# print job_id + 'idididididididi'
-		print job_data
+		# print job_data
 		one1 = tasktable.objects.filter(id=taskid)
 		if job_data != st:
 			if job_data == 'FAILURE': #PENDING SUCCESS STARTED

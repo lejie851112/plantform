@@ -674,14 +674,21 @@ def device_del(request):
 	# return HttpResponseRedirect('/device')	
 	return HttpResponse(u'成功')
 def device_detail(request,devid):
+	# data = {'devs':device_api.device_edit(devid)}
+	devs = device_api.device_edit(devid)
+	# groups = device_api.showgrp()
+	# idcinfo = device_api.idcinfo(devid)
+	# history = 
+	return session_check(request,'device_detail.html',locals())
+def info_update(request):
 	if request.method == 'POST':
-		device_api.device_detail(request,devid)
-		return HttpResponseRedirect('/device')	
-	else:
-		devinfo = device_api.showdev()
-		groups = device_api.showgrp()
-		idcs = device_api.showidc()
-		# history = 
-
-		# html = 'device_edit.html'
-		return session_check(request,'device_detail.html',locals())
+		asset_id_all = str(request.POST.get('asset_id_all', ''))
+		# print asset_id_all
+		device_api.info_update(asset_id_all)
+		return HttpResponse('ok')
+		# if device_api.info_update(asset_id_all)=='SUCCESS':
+		# 	print "success"
+		# 	return HttpResponse('SUCCESS')
+		# else:
+		# 	print "failure"
+		# 	return HttpResponse('FAILURE')
