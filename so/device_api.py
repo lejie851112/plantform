@@ -3,7 +3,7 @@
 
 import datetime,time
 from so.models import *
-
+from so.tasks import update_info
 #about idc
 def saveidc(request):
     idcname = request.POST['idcname'] 
@@ -124,7 +124,8 @@ def device_edit(devid):
         gname = g.iname.name
     for i in info.devtoidc_set.all():
         iname = i.iname.idcname
-    data = {'info': info,'group': gname,'idc': iname}
+        idcinfo = i.iname
+    data = {'info': info,'group': gname,'idc': iname,'idcinfo':idcinfo}
     return data
 
 def device_update(request,devid):
@@ -139,23 +140,23 @@ def device_update(request,devid):
     # ctime = datetime.datetime.now()
     
     sql = devices.objects.filter(id=devid)
-    sql.update(\
-        hostname=hostname,\
-        ip=ip,\
-        sshport=sshport,\
-        sshuser=sshuser,\
-        sshpass=sshpass,\
-        description=description,\
-        cpunum=request.POST['cpunum'],\
-        mem=request.POST['mem'],\
-        os=request.POST['os'],\
-        hyper=request.POST['hyper'],\
-        disk=request.POST['disk'],\
-        partion=request.POST['partion'],\
-        remotecard=request.POST['remotecard'],\
-        remoteaddr=request.POST['remoteaddr'],\
-        remoteuser=request.POST['remoteuser'],\
-        remotepass=request.POST['remotepass'],\
+    sql.update(
+        hostname=hostname,
+        ip=ip,
+        sshport=sshport,
+        sshuser=sshuser,
+        sshpass=sshpass,
+        description=description,
+        cpunum=request.POST['cpunum'],
+        mem=request.POST['mem'],
+        os=request.POST['os'],
+        hyper=request.POST['hyper'],
+        disk=request.POST['disk'],
+        partion=request.POST['partion'],
+        remotecard=request.POST['remotecard'],
+        remoteaddr=request.POST['remoteaddr'],
+        remoteuser=request.POST['remoteuser'],
+        remotepass=request.POST['remotepass'],
 
         )
         # sql.save()
@@ -186,5 +187,24 @@ def device_del(request):
             i.delete()
             d.delete()
 
-# def device_detail():
-    
+def info_update(ids):
+    for devid in ids.split(','):
+        if devices.objects.get(id=devid):
+            d = devices.objects.get(id=devid)
+            ip = str(d.ip)
+            user = str(d.sshuser)
+            passwd = str(d.sshpass)
+            port = int(d.sshport)
+            #run task 
+            res = update_info.delay(devid,ip,user,passwd,port)
+    # while True:
+    #     if res.state == "SUCCESS" or res.state == "FAILURE":
+    #         # print "**********"
+    #         # print res.state
+    #         return res.state
+    #         break
+
+    #     else:
+    #         # print "+++++++"
+    #         print res.state
+        

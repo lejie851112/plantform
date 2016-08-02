@@ -3,9 +3,10 @@
  
 from so.models import tasktable,groups
 import requests
+import paramiko
 # import pexpect
 from celery import task
-from so.models import userconf
+from so.models import userconf,devices
 
 global url 
 global username
@@ -195,8 +196,50 @@ def initzabbix(host, passwd):
 
 def update_task(taskid,t_detail):
     # print taskid
-    print t_detail
+    # print t_detail
     one = tasktable.objects.filter(id=taskid)
     one.update(detail=t_detail)
+
+@task()
+def update_info(devid,ip,user,passwd,port):
+    cmds = {
+        'hyper':'lscpu |grep \"Hypervisor vendor:\"|awk -F \":\" \'{print $2}\'',
+        'disk':'fdisk -l|grep  \"Disk\"|grep \'/dev/\'|awk \'{print $2,$3,$4}\'',
+        'partion':'ls -d /home',
+        'mem':'free -m|grep "Mem:"|awk \'{print $2}\'',
+        'cputype':'cat /proc/cpuinfo |grep \"model name\"|head -n 1|awk -F \":\" \'{print $2}\'',
+        'cpunum':'lscpu |grep ^CPU\(s\):|awk -F \":\" \'{print $2}\'',
+        'os':'uname -r'
+    }
+    res = {}
+    paramiko.util.log_to_file('/tmp/paramiko.log')
+    ssh=paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(hostname=ip,username=user,password=passwd,port=port)
+    for key in cmds.keys():
+        # print key
+        # print value
+        # print "sudo %s" % cmds[key]
+        stdin,stdout,stderr = ssh.exec_command("sudo %s" % cmds[key],get_pty=True)
+        stdin.write('%s\n' % passwd)
+        stdin.flush()
+        line = stdout.read()
+        # for line in stdout.readlines():
+        print line.split(':',1)[1]
+        res[key] = line.split(':',1)[1].strip()
+            # print res[key]
+            # print line
+        # res.update(tmp)
+    ssh.close()
+    sql = devices.objects.filter(id=devid)
+    sql.update(hyper=res['hyper'],
+        disk=res['disk'],
+        partion=res['partion'],
+        mem=res['mem'],
+        cputype=res['cputype'],
+        cpunum=res['cpunum'],
+        os=res['os'],
+        )
+   
 
 
