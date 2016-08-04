@@ -30,8 +30,8 @@
 								<th>主机名</th>
 								<th>MAC地址</th>
 								<th>操作系统</th>
-								<!-- <th>关联配置</th> -->
 								<th>状态</th>
+                                <th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -50,7 +50,7 @@
                                         <td class="text-center" data-editable='false'>
                                         <a href="/device_edit/{{dev.info.id}}/" class="btn btn-xs btn-info">初始化</a>
                                         <!-- <a href="" class="btn btn-xs btn-warning">连接</a> -->
-                                        <!-- <a value="/device_del/?id={{dev.info.id}}" class="btn btn-xs btn-danger asset_del">删除</a> -->
+                                        <a value="/device_del/?id={{dev.info.id}}" class="btn btn-xs btn-danger asset_del">终止</a>
                                    		</td>
                                 </tr>
                            {%endfor%}      
@@ -61,8 +61,8 @@
 				<div class="row">
                 <div class="col-lg-6" style="padding-left: 0">
                                 <input type="button" id="asset_del" class="btn btn-danger btn-sm"  name="del_button" value="初始化"/>
-                                <a value="" type="button" class="btn btn-sm btn-warning iframe">修改</a>
-                                <!-- <input type="button" id="asset_update" class="btn btn-info btn-sm"  name="update_button" value="更新"/> -->
+                                <!-- <a value="" type="button" class="btn btn-sm btn-warning iframe">修改</a> -->
+                                <input type="button" id="asset_update" class="btn btn-info btn-sm"  name="update_button" value="终止"/>
                                
                                 <!-- <input type="button" id="exec_cmd" class="btn btn-sm btn-primary"  name="exec_cmd" value="执行命令"/> -->
                 </div>
