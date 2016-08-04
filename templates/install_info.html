@@ -16,22 +16,7 @@
 				<div class="row"> 
 
              	<div class="col-lg-6" style="padding-left: 0">
-                    <a href="/device_add" class="btn btn-sm btn-primary "> 添加资产 </a>
-                </div>
-                <div class="col-lg-6" style="padding-right: 0">
-                             <div class="input-group">
-                                <input type="text" class="form-control m-b input-sm" id="search_input" name="keyword" value="" placeholder="Search">
-                                <input type="text" style="display: none">
-                                <div class="input-group-btn">
-                                    <button id='search_btn' href="" type="button" class="btn btn-sm btn-primary search-btn"  onclick="change_info()">
-                                        - 搜索 -
-                                    </button>
-                                    <button type="button" href="" name="export" class="btn btn-sm btn-success search-btn-excel" onclick="return false">
-                                        - 导出 -
-                                    </button>
-                                    <input type="button" class="btn btn-primary btn-sm"  name="update_button" value="更新全部" onclick="update_all()"/>
-                                </div>
-                            </div>
+                    <a href="/install_add" class="btn btn-sm btn-primary "> 添加设备 </a>
                 </div>
             	</div>
 				<div class="row">
@@ -42,16 +27,8 @@
                                     <input id="checkall" type="checkbox" class="i-checks" name="checkall" value="checkall" data-editable='false' onclick="check_all('dev_form')">
                                 </th>
 								<th>主机名</th>
-								<th>CPU</th>
-								<th>内存</th>
-								<th>IP地址</th>
+								<th>MAC地址</th>
 								<th>操作系统</th>
-								<!-- <th>主机类型</th> -->
-                                <th>虚拟化</th>
-								<th>硬盘</th> 
-                                <th>资产组</th>
-								<th>IDC</th>
-                                <th>更新时间</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -64,25 +41,8 @@
                                         <input value="{{dev.info.id}}" type="checkbox" class="i-checks">
                                     	</td>
                                       	<td><a href="/device_detail/{{dev.info.id}}/">{{dev.info.hostname}}</a></td>
-                                      	<td>{{dev.info.cpunum}}核</td>
-                                      	<td>{{dev.info.mem}}M</td>
                                       	<td>{{dev.info.ip}}</td>
                                       	<td>{{dev.info.os}}</td>
-                                        <!-- <td>{{dev.info.hostype}}</td> -->
-                                        <td>{{dev.info.hyper}}</td>
-                                      	
-                                      	<td>{{dev.info.disk}}</td>
-                                      	<td>
-                                        {%for g in dev.group%}
-                                        {{g}}</br>
-                                        {%endfor%}
-                                        </td>
-                                      	<td>
-                                        {%for i in dev.idc%}
-                                        {{i}}</br>
-                                        {%endfor%}
-                                        </td>
-									    <td>{{dev.info.updatetime|date:"m/d H:i"}}</td>
                                         <td class="text-center" data-editable='false'>
                                         <a href="/device_edit/{{dev.info.id}}/" class="btn btn-xs btn-info">编辑</a>
                                         <a href="" class="btn btn-xs btn-warning">连接</a>
