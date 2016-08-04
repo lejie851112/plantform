@@ -73,7 +73,25 @@
                 <input  type="text" class="form-control" name='os' value="{{devinfo.info.os}}">
                 </div>
                 <div class="col-lg-7">
+                <label>主机类型:</label> 
+                <input  type="text" class="form-control" name='hostype' value="{{devinfo.info.hostype}}">
+                </div>
+                <div class="col-lg-7">
                 <label>主机类型：</label> 
+                <select id='hostype' class="form-control" name='hostype' >
+                    <option value='None'>None</option>
+                    <!-- <option>None</option> -->
+                {%for g in idcs%}
+                    {%if g.info.idcname == devinfo.idc %}
+                    <option selected="selected">{{g.info.idcname}}</option>
+                    {%else%}
+                    <option>{{g.info.idcname}}</option>
+                    {%endif%}
+                {%endfor%}
+                </select>
+                </div>
+                <div class="col-lg-7">
+                <label>虚拟化：</label> 
                 <input  type="text" class="form-control" name='hyper' value="{{devinfo.info.hyper}}">
                 </div>
                 <div class="col-lg-7">

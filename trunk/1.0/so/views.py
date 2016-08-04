@@ -692,3 +692,25 @@ def info_update(request):
 		# else:
 		# 	print "failure"
 		# 	return HttpResponse('FAILURE')
+
+def install_info(request):
+	# data = {'devs':device_api.device_edit(devid)}
+	devs = device_api.showdev()
+	# groups = device_api.showgrp()
+	# idcinfo = device_api.idcinfo(devid)
+	# history = 
+	return session_check(request,'install_info.html',locals())
+def install_os(request):
+	# data = {'devs':device_api.device_edit(devid)}
+	devs = device_api.showdev()
+	# groups = device_api.showgrp()
+	# idcinfo = device_api.idcinfo(devid)
+	# history = 
+	return session_check(request,'install_os.html',locals())
+def install_init(request):
+	# data = {'devs':device_api.device_edit(devid)}
+	devs = device_api.showdev()
+	# groups = device_api.showgrp()
+	# idcinfo = device_api.idcinfo(devid)
+	# history = 
+	return session_check(request,'install_init.html',locals())

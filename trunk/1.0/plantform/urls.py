@@ -10,6 +10,7 @@ urlpatterns = [
     # Examples:
     # url(r'^$', 'so.views.home', name='home'),
     url(r'^user/', include('so.urls')),
+    # url(r'^init/', include('so.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -53,7 +54,7 @@ urlpatterns = [
     url(r'^device$', so.views.device),
     url(r'^device_add$', so.views.device_add),
     url(r'^device_edit/(.+)/$', so.views.device_edit),
-    url(r'^device_del', so.views.device_del),
+    url(r'^device_del/$', so.views.device_del),
     url(r'^device_detail/(.+)/$', so.views.device_detail),
     url(r'^info_update$', so.views.info_update),
     url(r'^device_group$', so.views.device_group),
@@ -62,4 +63,8 @@ urlpatterns = [
     url(r'^idc_edit/(.+)/$', so.views.idc_edit),
     url(r'^grp_edit/(.+)/$', so.views.grp_edit),
     url(r'^grp_del/(.+)/$', so.views.grp_del),
+    url(r'^install_info$', so.views.install_info),
+    url(r'^install_os$', so.views.install_os),
+    url(r'^install_init$', so.views.install_init),
+    
 ]

@@ -69,6 +69,7 @@ class userconf(models.Model):
 class devices(models.Model):
     hostname = models.CharField(max_length=32)
     ip = models.CharField(max_length=32)
+    hostype = models.CharField(max_length=32)
     #ssh
     sshport = models.CharField(max_length=32)
     sshuser = models.CharField(max_length=32)
