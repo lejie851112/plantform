@@ -29,7 +29,7 @@
                                     <button type="button" href="" name="export" class="btn btn-sm btn-success search-btn-excel" onclick="return false">
                                         - 导出 -
                                     </button>
-                                    <input type="button" class="btn btn-primary btn-sm"  name="update_button" value="更新全部" onclick="update_all()"/>
+                                    <input data-toggle="tooltip" title="通过paramiko实现" type="button" class="btn btn-primary btn-sm"  name="update_button" value="更新全部" onclick="update_all()"/>
                                 </div>
                             </div>
                 </div>
@@ -98,7 +98,7 @@
                 <div class="col-lg-6" style="padding-left: 0">
                                 <input type="button" id="asset_del" class="btn btn-danger btn-sm"  name="del_button" value="删除"/>
                                 <!-- <a value="" type="button" class="btn btn-sm btn-warning iframe">修改</a> -->
-                                <input type="button" id="asset_update" class="btn btn-info btn-sm"  name="update_button" value="更新"/>
+                                <input data-toggle="tooltip" title="通过paramiko实现" type="button" id="asset_update" class="btn btn-info btn-sm"  name="update_button" value="更新"/>
                                
                                 <input type="button" id="exec_cmd" class="btn btn-sm btn-primary"  name="exec_cmd" value="执行命令"/>
                 </div>

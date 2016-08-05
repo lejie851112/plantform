@@ -693,24 +693,41 @@ def info_update(request):
 		# 	print "failure"
 		# 	return HttpResponse('FAILURE')
 
-def install_info(request):
-	# data = {'devs':device_api.device_edit(devid)}
-	devs = device_api.showdev()
-	# groups = device_api.showgrp()
-	# idcinfo = device_api.idcinfo(devid)
-	# history = 
-	return session_check(request,'install_info.html',locals())
+# def install_info(request):
+# 	# data = {'devs':device_api.device_edit(devid)}
+# 	devs = device_api.showdev()
+# 	# groups = device_api.showgrp()
+# 	# idcinfo = device_api.idcinfo(devid)
+# 	# history = 
+# 	return session_check(request,'install_info.html',locals())
 def install_os(request):
 	# data = {'devs':device_api.device_edit(devid)}
-	devs = device_api.showdev()
+	tag = request.GET.get('tag','')
+	if tag == '1':
+		devs = device_api.showdev()
+		return session_check(request,'install_info.html',locals())
 	# groups = device_api.showgrp()
 	# idcinfo = device_api.idcinfo(devid)
 	# history = 
-	return session_check(request,'install_os.html',locals())
+	else:
+		devs = device_api.showdev()
+		return session_check(request,'install_os.html',locals())
 def install_init(request):
 	# data = {'devs':device_api.device_edit(devid)}
-	devs = device_api.showdev()
+	tag = request.GET.get('tag','')
+	if tag == '1':
+		devs = device_api.showdev()
+		return session_check(request,'install_jb.html',locals())
+	else:
+		devs = device_api.showdev()
 	# groups = device_api.showgrp()
 	# idcinfo = device_api.idcinfo(devid)
 	# history = 
-	return session_check(request,'install_init.html',locals())
+		return session_check(request,'install_init.html',locals())
+# def install_jb(request):
+# 	# data = {'devs':device_api.device_edit(devid)}
+# 	devs = device_api.showdev()
+# 	# groups = device_api.showgrp()
+# 	# idcinfo = device_api.idcinfo(devid)
+# 	# history = 
+# 	return session_check(request,'install_jb.html',locals())
