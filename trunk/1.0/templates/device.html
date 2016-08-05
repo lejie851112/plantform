@@ -23,12 +23,12 @@
                                 <input type="text" class="form-control m-b input-sm" id="search_input" name="keyword" value="" placeholder="Search">
                                 <input type="text" style="display: none">
                                 <div class="input-group-btn">
-                                    <button id='search_btn' href="" type="button" class="btn btn-sm btn-primary search-btn"  onclick="change_info()">
+                                    <!-- <button id='search_btn' href="" type="button" class="btn btn-sm btn-primary search-btn"  onclick="change_info()">
                                         - 搜索 -
                                     </button>
                                     <button type="button" href="" name="export" class="btn btn-sm btn-success search-btn-excel" onclick="return false">
                                         - 导出 -
-                                    </button>
+                                    </button> -->
                                     <input data-toggle="tooltip" title="通过paramiko实现" type="button" class="btn btn-primary btn-sm"  name="update_button" value="更新全部" onclick="update_all()"/>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
 									    <td>{{dev.info.updatetime|date:"m/d H:i"}}</td>
                                         <td class="text-center" data-editable='false'>
                                         <a href="/device_edit/{{dev.info.id}}/" class="btn btn-xs btn-info">编辑</a>
-                                        <a href="" class="btn btn-xs btn-warning">连接</a>
+                                        <!-- <a href="" class="btn btn-xs btn-warning">连接</a> -->
                                         <a value="/device_del/?id={{dev.info.id}}" class="btn btn-xs btn-danger asset_del">删除</a>
                                    		</td>
                                 </tr>
@@ -100,7 +100,7 @@
                                 <!-- <a value="" type="button" class="btn btn-sm btn-warning iframe">修改</a> -->
                                 <input data-toggle="tooltip" title="通过paramiko实现" type="button" id="asset_update" class="btn btn-info btn-sm"  name="update_button" value="更新"/>
                                
-                                <input type="button" id="exec_cmd" class="btn btn-sm btn-primary"  name="exec_cmd" value="执行命令"/>
+                                <!-- <input type="button" id="exec_cmd" class="btn btn-sm btn-primary"  name="exec_cmd" value="执行命令"/> -->
                 </div>
 				</div>
 			</form>
