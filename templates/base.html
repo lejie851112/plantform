@@ -111,11 +111,13 @@
                                 <!-- <li>
                                     <a href="/install_info"> 安装信息 </a>
                                 </li> -->
+                                <li><a href="/install_os/?tag=1">配置文件 kickstart</a></li>
                                 <li>
-                                    <a href="/install_os"> 系统安装 cobbler </a>
+                                    <a data-toggle="tooltip" title="支持esxi,centso,windows,ubuntu" href="/install_os/?tag=0"> 系统安装 cobbler </a>
                                 </li>
+                                <li><a href="/install_init/?tag=1">初始化文件 sls</a></li>  
                                 <li>
-                                    <a href="/install_init"> 系统初始化 ansible</a>
+                                    <a data-toggle="tooltip" title="配置ip,hostname,zabbix,salt和其它自定义" href="/install_init/?tag=0"> 系统初始化 ansible</a>
                                 </li>
                             </ul> 
                         </li>
@@ -139,13 +141,13 @@
 							<a href="#"><i class="fa fa-wrench fa-fw "></i> salt远程维护<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li>
-                                    <a href="/remote"> 远程命令</a>
+                                    <a href="/remote"> 远程命令 salt api</a>
                                 </li>
                                 <li>
-                                    <a href="/edit"> sls文件管理</a>
+                                    <a href="/edit"> 配置管理 sls</a>
                                 </li>
                                 <li>
-                                    <a href="/push"> 任务管理</a>
+                                    <a href="/push"> 任务管理 celery</a>
                                 </li>
 								<li>
                                     <a href="/salt_group"> 设备分组</a>

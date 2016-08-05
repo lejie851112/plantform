@@ -63,8 +63,9 @@ urlpatterns = [
     url(r'^idc_edit/(.+)/$', so.views.idc_edit),
     url(r'^grp_edit/(.+)/$', so.views.grp_edit),
     url(r'^grp_del/(.+)/$', so.views.grp_del),
-    url(r'^install_info$', so.views.install_info),
-    url(r'^install_os$', so.views.install_os),
-    url(r'^install_init$', so.views.install_init),
+    # url(r'^install_info$', so.views.install_info),
+    url(r'^install_os/$', so.views.install_os),
+    url(r'^install_init/$', so.views.install_init),
+    # url(r'^install_jb$', so.views.install_jb),
     
 ]
